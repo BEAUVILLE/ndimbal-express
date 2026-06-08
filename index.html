@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta name="theme-color" content="#0b5d3b"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="digiy-version" content="ndimbal-express-public-20260608"/>
+  <title>NDIMBAL Express — Missions courtes autour de toi</title>
+  <meta name="description" content="NDIMBAL Express : missions courtes, urgentes ou ponctuelles. Contact direct WhatsApp/SMS. 0% commission DIGIYLYFE."/>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root{
+      --bg:#061b14;
+      --bg2:#0b5d3b;
+      --card:#0b2a1f;
+      --line:rgba(255,255,255,.14);
+      --text:#f8fafc;
+      --muted:rgba(248,250,252,.75);
+      --gold:#facc15;
+      --gold2:#f59e0b;
+      --green:#22c55e;
+      --green2:#16a34a;
+      --blue:#38bdf8;
+      --red:#ef4444;
+      --shadow:0 22px 58px rgba(0,0,0,.32);
+      --radius:26px;
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:var(--font);
+      background:
+        radial-gradient(900px 520px at 10% -10%,rgba(250,204,21,.15),transparent 60%),
+        radial-gradient(760px 440px at 100% 8%,rgba(34,197,94,.18),transparent 62%),
+        linear-gradient(180deg,var(--bg2),var(--bg) 46%,#04140f 100%);
+      padding-bottom:86px;
+      font-weight:850;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+
+    .page{
+      width:min(1120px,100%);
+      margin:0 auto;
+      padding:14px;
+    }
+
+    .topRail{
+      position:sticky;
+      top:0;
+      z-index:30;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      padding:10px 0 12px;
+      background:linear-gradient(180deg,rgba(11,93,59,.96),rgba(11,93,59,.76),transparent);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+    }
+
+    .railBtn{
+      min-height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      padding:0 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(8,47,33,.72);
+      color:#fff;
+      font-size:13px;
+      font-weight:1000;
+      white-space:nowrap;
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+      touch-action:manipulation;
+      cursor:pointer;
+    }
+
+    .railBtn.gold{
+      color:#072317;
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      border-color:rgba(255,255,255,.30);
+    }
+
+    .railBtn.active{
+      color:#fff8db;
+      border-color:rgba(250,204,21,.44);
+      background:rgba(250,204,21,.13);
+    }
+
+    .hero{
+      border:1px solid rgba(250,204,21,.26);
+      border-radius:30px;
+      background:
+        radial-gradient(620px 260px at 8% 0%,rgba(250,204,21,.14),transparent 62%),
+        radial-gradient(560px 260px at 100% 0%,rgba(34,197,94,.13),transparent 62%),
+        linear-gradient(145deg,rgba(8,47,33,.96),rgba(9,34,25,.97));
+      box-shadow:var(--shadow);
+      padding:20px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:5px;
+      background:linear-gradient(90deg,var(--green),var(--gold),var(--blue));
+    }
+
+    .heroTop{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    .mark{
+      width:62px;
+      height:62px;
+      border-radius:22px;
+      display:grid;
+      place-items:center;
+      font-size:32px;
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      color:#052e16;
+      box-shadow:0 14px 32px rgba(0,0,0,.26);
+      border:1px solid rgba(255,255,255,.28);
+      flex:0 0 auto;
+    }
+
+    .kicker{
+      color:#bbf7d0;
+      font-size:11px;
+      font-weight:1000;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:4px 0 0;
+      font-size:clamp(36px,7vw,68px);
+      line-height:.94;
+      letter-spacing:-.06em;
+      font-weight:1000;
+      color:#fff;
+    }
+
+    .lead{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.56;
+      font-weight:850;
+      max-width:840px;
+    }
+
+    .doctrine{
+      margin-top:14px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .doctrine span{
+      display:inline-flex;
+      min-height:34px;
+      align-items:center;
+      padding:0 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      color:#fff8db;
+      font-size:12px;
+      font-weight:1000;
+    }
+
+    .doctrine span:first-child{
+      color:#052e16;
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      border-color:rgba(255,255,255,.28);
+    }
+
+    .audioBox{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+      padding:14px;
+      border-radius:22px;
+      border:1px solid rgba(250,204,21,.28);
+      background:rgba(250,204,21,.075);
+    }
+
+    .audioTitle{
+      color:#fff8db;
+      font-weight:1000;
+      font-size:15px;
+    }
+
+    .audioText{
+      color:var(--muted);
+      line-height:1.45;
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .audioActions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .audioBtn{
+      min-height:44px;
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,.40);
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      color:#052e16;
+      padding:0 15px;
+      font-size:13px;
+      font-weight:1000;
+      cursor:pointer;
+    }
+
+    .audioBtn.stop{
+      background:rgba(251,113,133,.12);
+      border-color:rgba(251,113,133,.36);
+      color:#ffe4e6;
+    }
+
+    .filters{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+    }
+
+    .search{
+      min-height:52px;
+      width:100%;
+      padding:0 14px;
+      border-radius:17px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.16);
+      color:#fff;
+      outline:none;
+      font-weight:900;
+    }
+
+    .search::placeholder{color:rgba(248,250,252,.62)}
+    .search:focus{border-color:rgba(250,204,21,.48);box-shadow:0 0 0 3px rgba(250,204,21,.10)}
+
+    .quickBtns{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .quickBtn{
+      min-height:52px;
+      border-radius:17px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      color:#fff;
+      padding:0 13px;
+      font-size:13px;
+      font-weight:1000;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+
+    .quickBtn.gold{
+      color:#052e16;
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      border-color:rgba(255,255,255,.28);
+    }
+
+    .quickBtn.active{
+      color:#052e16;
+      background:linear-gradient(135deg,#bbf7d0,#22c55e);
+      border-color:rgba(255,255,255,.28);
+    }
+
+    .sectionHead{
+      margin:18px 2px 10px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:end;
+      flex-wrap:wrap;
+    }
+
+    .sectionTitle{
+      font-size:24px;
+      font-weight:1000;
+      letter-spacing:-.035em;
+    }
+
+    .sectionSub{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .countPill{
+      min-height:34px;
+      border-radius:999px;
+      padding:0 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(250,204,21,.28);
+      background:rgba(250,204,21,.09);
+      color:#fff8db;
+      font-size:12px;
+      font-weight:1000;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .missionCard{
+      min-height:190px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.13);
+      background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.045));
+      padding:16px;
+      box-shadow:0 14px 30px rgba(0,0,0,.20);
+      display:grid;
+      gap:10px;
+    }
+
+    .cardTop{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+
+    .missionIcon{
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      background:linear-gradient(135deg,rgba(250,204,21,.22),rgba(34,197,94,.16));
+      border:1px solid rgba(250,204,21,.24);
+      font-size:26px;
+    }
+
+    .missionTitle{
+      margin:0;
+      color:#fff;
+      font-size:19px;
+      line-height:1.12;
+      font-weight:1000;
+      letter-spacing:-.025em;
+    }
+
+    .meta{
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      width:max-content;
+      max-width:100%;
+      display:inline-flex;
+      min-height:28px;
+      align-items:center;
+      padding:0 9px;
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,.26);
+      background:rgba(250,204,21,.08);
+      color:#fff8db;
+      font-size:11px;
+      font-weight:1000;
+    }
+
+    .tag.green{
+      border-color:rgba(34,197,94,.34);
+      background:rgba(34,197,94,.11);
+      color:#bbf7d0;
+    }
+
+    .details{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.48;
+      font-weight:850;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    }
+
+    .contactRow{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:4px;
+    }
+
+    .contactBtn{
+      min-height:46px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      padding:0 11px;
+      font-size:13px;
+      font-weight:1000;
+      text-align:center;
+    }
+
+    .contactBtn.whatsapp{
+      background:linear-gradient(135deg,#bbf7d0,#22c55e);
+      color:#052e16;
+      border-color:rgba(255,255,255,.28);
+    }
+
+    .empty{
+      grid-column:1/-1;
+      border-radius:24px;
+      border:1px dashed rgba(250,204,21,.34);
+      background:rgba(250,204,21,.075);
+      padding:18px;
+      color:#fff8db;
+      font-weight:950;
+      line-height:1.5;
+      text-align:center;
+    }
+
+    .note{
+      margin-top:16px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.14);
+      padding:14px;
+      color:rgba(248,250,252,.82);
+      line-height:1.55;
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .footer{
+      margin-top:14px;
+      text-align:center;
+      color:#bbf7d0;
+      font-size:12px;
+      font-weight:1000;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      opacity:.88;
+    }
+
+    .hidden{display:none!important}
+
+    @media(max-width:760px){
+      body{padding-bottom:96px}
+      .page{padding:10px}
+      .topRail{gap:7px;padding:8px 0 10px}
+      .railBtn{flex:1 1 calc(50% - 8px);min-height:48px;padding:0 10px;font-size:12px}
+      .hero{padding:16px;border-radius:24px}
+      .heroTop{grid-template-columns:1fr}
+      .mark{width:58px;height:58px}
+      .filters{grid-template-columns:1fr}
+      .quickBtns{justify-content:stretch}
+      .quickBtn{flex:1 1 130px}
+      .grid{grid-template-columns:1fr}
+      .contactRow{grid-template-columns:1fr}
+      .missionTitle{font-size:20px}
+      .audioBtn{flex:1 1 150px}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <nav class="topRail" aria-label="Navigation NDIMBAL Express">
+      <a class="railBtn" href="https://digiylyfe.com/" rel="noopener">🌍 Site</a>
+      <a class="railBtn" href="https://digiy-hub.digiylyfe.com/" rel="noopener">🧭 HUB</a>
+      <a class="railBtn active" href="./public.html" aria-current="page">⚡ NDIMBAL Public</a>
+      <a class="railBtn gold" href="./pin.html?redirect=./index.html">➕ Publier une mission</a>
+    </nav>
+
+    <section class="hero" aria-label="NDIMBAL Express public">
+      <div class="heroTop">
+        <div class="mark" aria-hidden="true">⚡</div>
+        <div>
+          <div class="kicker">Missions courtes · contact direct · 0% commission</div>
+          <h1>NDIMBAL Express</h1>
+          <p class="lead">
+            Trouve une mission courte, urgente ou ponctuelle autour de toi.
+            Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.
+          </p>
+          <div class="doctrine" aria-label="Doctrine NDIMBAL Express">
+            <span>0% commission</span>
+            <span>Contact direct</span>
+            <span>Missions validées</span>
+            <span>WhatsApp / SMS</span>
+            <span>Le terrain garde la main</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="audioBox">
+        <div class="audioTitle">🎧 Comprendre NDIMBAL Express</div>
+        <div class="audioText">
+          Une courte voix explique comment lire une mission, contacter directement et proposer ton aide sans passer par une plateforme captatrice.
+        </div>
+        <div class="audioActions">
+          <button class="audioBtn" id="audioPlay" type="button">🎧 Écouter</button>
+          <button class="audioBtn stop" id="audioStop" type="button">⏹ Stop</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters" aria-label="Recherche missions">
+      <input id="search" class="search" type="search" placeholder="Rechercher : livraison, ménage, course, Dakar, Saly, aujourd'hui…" autocomplete="off"/>
+      <div class="quickBtns">
+        <button class="quickBtn active" type="button" data-zone="">Tout</button>
+        <button class="quickBtn" type="button" data-zone="Saly">Saly</button>
+        <button class="quickBtn" type="button" data-zone="Dakar">Dakar</button>
+        <button class="quickBtn" type="button" data-zone="Mbour">Mbour</button>
+        <button class="quickBtn" type="button" data-zone="Thiès">Thiès</button>
+        <button class="quickBtn gold" id="refreshBtn" type="button">🔄 Recharger</button>
+      </div>
+    </section>
+
+    <div class="sectionHead">
+      <div>
+        <div class="sectionTitle">Missions disponibles</div>
+        <div class="sectionSub">Seules les missions validées doivent apparaître ici.</div>
+      </div>
+      <div class="countPill" id="countPill">Chargement…</div>
+    </div>
+
+    <section class="grid" id="missionsGrid" aria-live="polite">
+      <div class="empty">Chargement des missions NDIMBAL Express…</div>
+    </section>
+
+    <div class="note">
+      <b>Règle DIGIY :</b> cette page est publique.
+      Les conditions, le prix, le lieu précis et le paiement se discutent directement entre les personnes.
+      DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.
+    </div>
+
+    <div class="footer">DIGIYLYFE ♾️ · NDIMBAL EXPRESS · DIRECT AU PEUPLE</div>
+  </main>
+
+  <script>
+  (function(){
+    "use strict";
+
+    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
+    const TABLE_NAME = "jef_missions";
+
+    const SB = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+    const grid = document.getElementById("missionsGrid");
+    const search = document.getElementById("search");
+    const countPill = document.getElementById("countPill");
+
+    let allMissions = [];
+    let activeZone = "";
+
+    function esc(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function norm(s){
+      return String(s || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\\u0300-\\u036f]/g,"")
+        .trim();
+    }
+
+    function digits(s){
+      let p = String(s || "").replace(/\\D/g,"");
+      if(p.startsWith("00221")) p = "221" + p.slice(5);
+      if(p.length === 9 && p.startsWith("7")) p = "221" + p;
+      return p;
+    }
+
+    function phoneDisplay(phone){
+      const p = digits(phone);
+      if(p.startsWith("221") && p.length >= 12){
+        return "+221 " + p.slice(3,5) + " " + p.slice(5,8) + " " + p.slice(8,10) + " " + p.slice(10,12);
+      }
+      return String(phone || "");
+    }
+
+    function waLink(phone, title){
+      const p = digits(phone);
+      const msg = "Bonjour, je viens de voir la mission NDIMBAL Express : " + (title || "mission") + ". Je veux proposer mon aide.";
+      if(!p) return "#";
+      return "https://wa.me/" + p + "?text=" + encodeURIComponent(msg);
+    }
+
+    function smsLink(phone, title){
+      const p = digits(phone);
+      const msg = "Bonjour, mission NDIMBAL Express : " + (title || "mission") + ". Je veux proposer mon aide.";
+      if(!p) return "#";
+      return "sms:+" + p + "?body=" + encodeURIComponent(msg);
+    }
+
+    function readField(row, names){
+      for(const n of names){
+        if(row && row[n] !== undefined && row[n] !== null && String(row[n]).trim() !== "") return row[n];
+      }
+      return "";
+    }
+
+    function missionCard(row){
+      const title = readField(row, ["title","titre","mission_title","label"]) || "Mission NDIMBAL";
+      const zone = readField(row, ["zone","location","ville","city","localisation"]) || "Zone à préciser";
+      const when = readField(row, ["when_text","when","moment","urgence","date_text"]) || "Moment à préciser";
+      const details = readField(row, ["details","description","body","note_public"]) || "Détails à confirmer avec la personne.";
+      const phone = readField(row, ["phone","whatsapp","telephone","tel"]);
+      const ref = readField(row, ["ref","reference","id"]);
+
+      return `
+        <article class="missionCard">
+          <div class="cardTop">
+            <div style="display:flex;gap:12px;align-items:flex-start;min-width:0">
+              <div class="missionIcon">💼</div>
+              <div style="min-width:0">
+                <h2 class="missionTitle">${esc(title)}</h2>
+                <div class="meta" style="margin-top:8px">
+                  <span class="tag green">📍 ${esc(zone)}</span>
+                  <span class="tag">⏰ ${esc(when)}</span>
+                  ${ref ? `<span class="tag">#${esc(ref)}</span>` : ""}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="details">${esc(details)}</div>
+
+          ${phone ? `<div class="tag">📞 ${esc(phoneDisplay(phone))}</div>` : `<div class="tag">📞 Contact à préciser</div>`}
+
+          <div class="contactRow">
+            <a class="contactBtn whatsapp" href="${esc(waLink(phone,title))}" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a class="contactBtn" href="${esc(smsLink(phone,title))}">✉️ SMS</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function statusOk(row){
+      const s = norm(readField(row, ["status","etat","state"]));
+      return ["approved","approve","published","public","validated","valide","validé","active","online"].includes(s);
+    }
+
+    function filterMissions(){
+      const q = norm(search.value);
+      const z = norm(activeZone);
+
+      return allMissions.filter(row => {
+        if(!statusOk(row)) return false;
+
+        const hay = norm([
+          readField(row, ["title","titre","mission_title","label"]),
+          readField(row, ["zone","location","ville","city","localisation"]),
+          readField(row, ["when_text","when","moment","urgence","date_text"]),
+          readField(row, ["details","description","body","note_public"])
+        ].join(" "));
+
+        const zoneValue = norm(readField(row, ["zone","location","ville","city","localisation"]));
+
+        return (!q || hay.includes(q)) && (!z || zoneValue.includes(z));
+      });
+    }
+
+    function render(){
+      const list = filterMissions();
+
+      countPill.textContent = list.length + " mission" + (list.length > 1 ? "s" : "");
+
+      if(!list.length){
+        grid.innerHTML = `
+          <div class="empty">
+            Aucune mission validée pour le moment.<br>
+            Reviens plus tard ou publie une mission via la porte NDIMBAL Express.
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(missionCard).join("");
+    }
+
+    async function loadMissions(){
+      if(!SB){
+        grid.innerHTML = `<div class="empty">Supabase indisponible sur ce navigateur.</div>`;
+        countPill.textContent = "Erreur";
+        return;
+      }
+
+      grid.innerHTML = `<div class="empty">Chargement des missions NDIMBAL Express…</div>`;
+      countPill.textContent = "Chargement…";
+
+      try{
+        /*
+          La page publique ne doit afficher que les lignes validées.
+          On charge une petite fenêtre, puis on filtre côté client avec statusOk
+          pour rester compatible avec les statuts déjà utilisés dans tes fichiers.
+        */
+        const { data, error } = await SB
+          .from(TABLE_NAME)
+          .select("*")
+          .order("created_at", { ascending:false })
+          .limit(80);
+
+        if(error) throw error;
+
+        allMissions = Array.isArray(data) ? data : [];
+        render();
+      }catch(err){
+        console.error(err);
+        grid.innerHTML = `
+          <div class="empty">
+            Impossible de charger les missions publiques.<br>
+            Vérifie la table <b>${esc(TABLE_NAME)}</b>, les statuts validés et les règles RLS.
+          </div>
+        `;
+        countPill.textContent = "Erreur";
+      }
+    }
+
+    search.addEventListener("input", render);
+
+    document.querySelectorAll("[data-zone]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeZone = btn.getAttribute("data-zone") || "";
+        document.querySelectorAll("[data-zone]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render();
+      });
+    });
+
+    document.getElementById("refreshBtn").addEventListener("click", loadMissions);
+
+    loadMissions();
+  })();
+  </script>
+
+  <script>
+  (function(){
+    "use strict";
+
+    const text =
+      "Bienvenue dans NDIMBAL Express public. Ici, tu vois les missions courtes validées. " +
+      "Tu peux chercher par zone, lire le titre, le moment, les détails, puis contacter directement par Ouatsap ou S M S. " +
+      "DIGIYLYFE ne prend aucune commission. Les conditions et le paiement se discutent directement entre les personnes. " +
+      "Pour publier une mission, appuie sur Publier une mission. Le PIN protège le dépôt, puis index point H T M L ouvre le formulaire.";
+
+    const play = document.getElementById("audioPlay");
+    const stop = document.getElementById("audioStop");
+
+    function canSpeak(){
+      return "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+    }
+
+    function pickVoice(){
+      if(!canSpeak()) return null;
+      const voices = window.speechSynthesis.getVoices() || [];
+      return voices.find(v => /^fr/i.test(v.lang || "") && /FR/i.test(v.lang || "")) ||
+             voices.find(v => /^fr/i.test(v.lang || "")) ||
+             voices[0] ||
+             null;
+    }
+
+    function stopAudio(){
+      if(canSpeak()) window.speechSynthesis.cancel();
+      if(play) play.textContent = "🎧 Écouter";
+    }
+
+    function speak(){
+      if(!canSpeak()) return;
+      if(window.speechSynthesis.speaking){
+        stopAudio();
+        return;
+      }
+
+      stopAudio();
+
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "fr-FR";
+      u.rate = 0.88;
+      u.pitch = 1;
+      u.volume = 1;
+
+      const voice = pickVoice();
+      if(voice) u.voice = voice;
+
+      u.onstart = function(){ if(play) play.textContent = "⏸️ Lecture en cours"; };
+      u.onend = stopAudio;
+      u.onerror = stopAudio;
+
+      window.speechSynthesis.speak(u);
+    }
+
+    play && play.addEventListener("click", speak);
+    stop && stop.addEventListener("click", stopAudio);
+    window.addEventListener("pagehide", stopAudio);
+
+    if(canSpeak()){
+      window.speechSynthesis.onvoiceschanged = function(){};
+    }
+  })();
+  </script>
+</body>
+</html>
