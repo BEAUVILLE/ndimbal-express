@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="index,follow"/>
-  <meta name="digiy-version" content="ndimbal-express-public-20260608"/>
+  <meta name="digiy-version" content="ndimbal-express-public-rpc-root-20260608"/>
   <title>NDIMBAL Express — Missions courtes autour de toi</title>
   <meta name="description" content="NDIMBAL Express : missions courtes, urgentes ou ponctuelles. Contact direct WhatsApp/SMS. 0% commission DIGIYLYFE."/>
 
@@ -578,6 +578,7 @@
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
     const TABLE_NAME = "jef_missions";
+    const PUBLIC_RPC = "ndimbal_public_missions";
 
     const SB = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
@@ -736,11 +737,9 @@
           On charge une petite fenêtre, puis on filtre côté client avec statusOk
           pour rester compatible avec les statuts déjà utilisés dans tes fichiers.
         */
-        const { data, error } = await SB
-          .from(TABLE_NAME)
-          .select("*")
-          .order("created_at", { ascending:false })
-          .limit(80);
+        const { data, error } = await SB.rpc("ndimbal_public_missions", {
+          p_limit: 80
+        });
 
         if(error) throw error;
 
@@ -751,7 +750,7 @@
         grid.innerHTML = `
           <div class="empty">
             Impossible de charger les missions publiques.<br>
-            Vérifie la table <b>${esc(TABLE_NAME)}</b>, les statuts validés et les règles RLS.
+            Vérifie la fonction publique <b>${esc(PUBLIC_RPC)}</b>, les statuts validés et les droits EXECUTE.
           </div>
         `;
         countPill.textContent = "Erreur";
@@ -842,3 +841,4 @@
   </script>
 </body>
 </html>
+
