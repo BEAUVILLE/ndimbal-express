@@ -1,308 +1,57 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <meta name="theme-color" content="#0b5d3b"/>
-  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
-  <meta name="digiy-version" content="ndimbal-inscription-ticket-duree-paiement-validation-20260613"/>
-  <title>Inscription NDIMBAL Express — Ticket publication</title>
-  <meta name="description" content="Inscription NDIMBAL Express : choisir une durée, préparer une mission courte, payer le ticket, puis validation DIGIY avant affichage public."/>
+Choisis ton tarif DRIVER
+Aucun choix n’est imposé. Clique sur le tarif qui correspond à ton activité. Le total se prépare automatiquement, puis tu peux envoyer ton message WhatsApp ou SMS.
 
-  <style>
-    :root{
-      --bg:#061b14;--bg2:#0b5d3b;--card:#0b2a1f;--line:rgba(255,255,255,.14);
-      --text:#f8fafc;--muted:rgba(248,250,252,.76);--gold:#facc15;--gold2:#f59e0b;
-      --green:#22c55e;--green2:#16a34a;--red:#ef4444;--blue:#38bdf8;
-      --shadow:0 22px 58px rgba(0,0,0,.30);--radius:24px;
-      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;min-height:100vh;color:var(--text);font-family:var(--font);font-weight:850;
-      background:
-        radial-gradient(900px 520px at 10% -10%,rgba(250,204,21,.16),transparent 60%),
-        radial-gradient(760px 440px at 100% 8%,rgba(34,197,94,.18),transparent 62%),
-        linear-gradient(180deg,var(--bg2),var(--bg) 46%,#04140f 100%);
-    }
-    a{color:inherit;text-decoration:none}
-    button,input,textarea,select{font:inherit}
-    .page{width:min(760px,100%);margin:0 auto;padding:12px 12px 90px}
-    .top{
-      position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;justify-content:space-between;
-      padding:10px 0 12px;background:linear-gradient(180deg,rgba(11,93,59,.96),rgba(11,93,59,.76),transparent);
-      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    }
-    .brand{display:flex;align-items:center;gap:9px;font-weight:1000;color:#bbf7d0}
-    .mark{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#fde68a,var(--gold),var(--green));color:#052e16;font-size:23px}
-    .top a,.top button{
-      min-height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(8,47,33,.72);
-      color:#fff;padding:0 13px;font-size:13px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:7px;
-    }
-    .hero{
-      border:1px solid rgba(250,204,21,.28);border-radius:30px;padding:18px;
-      background:
-        radial-gradient(620px 260px at 8% 0%,rgba(250,204,21,.15),transparent 62%),
-        radial-gradient(560px 260px at 100% 0%,rgba(34,197,94,.13),transparent 62%),
-        linear-gradient(145deg,rgba(8,47,33,.96),rgba(9,34,25,.97));
-      box-shadow:var(--shadow);overflow:hidden;position:relative;margin-bottom:12px;
-    }
-    .hero:before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--green),var(--gold),var(--blue))}
-    .kicker{color:#bbf7d0;font-size:11px;font-weight:1000;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:6px 0 0;font-size:clamp(34px,8vw,58px);line-height:.94;letter-spacing:-.06em;font-weight:1000;color:#fff}
-    .lead{margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.52;font-weight:900}
-    .rule{
-      margin-top:13px;border-radius:20px;border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.09);
-      padding:12px;color:#fff8db;font-size:13px;line-height:1.45;font-weight:950;
-    }
-    .plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0}
-    .plan{
-      border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);border-radius:22px;padding:13px;
-      min-height:138px;display:flex;flex-direction:column;gap:8px;justify-content:space-between;cursor:pointer;text-align:left;color:#fff;
-    }
-    .plan.active{border-color:rgba(250,204,21,.58);background:linear-gradient(180deg,rgba(250,204,21,.18),rgba(255,255,255,.07));box-shadow:0 0 0 4px rgba(250,204,21,.08)}
-    .plan b{font-size:20px;line-height:1.05;color:#fff}
-    .plan span{font-size:12px;line-height:1.28;color:var(--muted);font-weight:900}
-    .plan strong{font-size:22px;color:#fff8db}
-    .card{
-      border:1px solid rgba(255,255,255,.14);border-radius:24px;background:rgba(255,255,255,.065);
-      padding:15px;margin-bottom:12px;box-shadow:0 16px 38px rgba(0,0,0,.20);
-    }
-    .cardTitle{font-size:21px;font-weight:1000;color:#fff8db;margin-bottom:10px;letter-spacing:-.025em}
-    label{display:block;margin:12px 0 6px;color:#d9f99d;font-size:13px;font-weight:1000}
-    input,textarea,select{
-      width:100%;min-height:48px;border-radius:15px;border:1px solid rgba(255,255,255,.14);background:#052e16;
-      color:var(--text);padding:12px;font-size:15px;font-weight:900;outline:none;
-    }
-    textarea{min-height:108px;resize:vertical;line-height:1.46}
-    input::placeholder,textarea::placeholder{color:rgba(248,250,252,.48)}
-    input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.12)}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .payBox{
-      border-radius:20px;border:1px solid rgba(34,197,94,.30);background:rgba(34,197,94,.10);
-      padding:12px;display:grid;gap:8px;color:#dfffe9;font-size:13px;line-height:1.45;font-weight:950;
-    }
-    .payLine{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.10);padding-bottom:8px}
-    .payLine:last-child{border-bottom:0;padding-bottom:0}
-    .amount{font-size:25px;font-weight:1000;color:#fff8db}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-    .btn{
-      min-height:54px;border-radius:17px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.075);
-      color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 12px;font-size:14px;font-weight:1000;cursor:pointer;
-    }
-    .btn.main{background:linear-gradient(135deg,#fde68a,var(--gold),var(--green));color:#052e16;border-color:rgba(255,255,255,.30)}
-    .btn.whats{background:rgba(34,197,94,.16);border-color:rgba(34,197,94,.36);color:#dfffe9}
-    .preview{
-      display:none;white-space:pre-wrap;margin-top:12px;border-radius:18px;border:1px solid rgba(250,204,21,.34);
-      background:rgba(250,204,21,.10);padding:12px;color:#fff8db;font-size:13px;line-height:1.5;font-weight:900;
-    }
-    .preview.show{display:block}
-    .status{margin-top:10px;border-radius:17px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);padding:11px;color:var(--muted);font-size:13px;line-height:1.45;font-weight:900}
-    .status.ok{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.34);color:#bbf7d0}
-    .status.err{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.34);color:#fecaca}
-    .footer{text-align:center;color:#bbf7d0;font-size:12px;font-weight:1000;letter-spacing:.08em;text-transform:uppercase;margin:18px 0}
-    @media(max-width:680px){
-      .top{align-items:flex-start}.top a{min-height:42px}
-      .plans{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.actions{grid-template-columns:1fr}
-      .hero{padding:16px;border-radius:26px}
-    }
-  </style>
-</head>
 
-<body>
-  <main class="page">
-    <nav class="top" aria-label="Navigation inscription NDIMBAL">
-      <a class="brand" href="./public.html"><span class="mark">⚡</span><span>NDIMBAL Express</span></a>
-      <a href="./public.html">← Missions</a>
-    </nav>
+1A · Jakarta / moto
+Pour chauffeur moto, petit transport local, première présence DIGIY.
+5 500 FCFA
+9 € / mois
 
-    <section class="hero">
-      <div class="kicker">Inscription · ticket durée · validation DIGIY</div>
-      <h1>Prendre un ticket NDIMBAL.</h1>
-      <p class="lead">
-        Voir les missions est gratuit. Pour publier une mission courte, tu choisis une durée,
-        tu prépares le paiement, puis DIGIY valide avant affichage public.
-      </p>
-      <div class="rule">
-        Règle : le dépôt n’est pas une publication automatique. La mission devient visible seulement après paiement reçu et validation DIGIY.
-      </div>
-    </section>
+1B · Bus / navette
+Pour transport régulier, navette, groupe, circuit simple.
+12 000 FCFA
+19 € / mois
 
-    <section class="card">
-      <div class="cardTitle">🎫 Choisir la durée</div>
-      <div class="plans" id="plans">
-        <button class="plan active" type="button" data-plan="N1 Express 48h" data-days="2" data-amount="5000">
-          <b>N1 Express 48h</b>
-          <span>Annonce courte visible 48h après validation.</span>
-          <strong>5 000 FCFA</strong>
-        </button>
-        <button class="plan" type="button" data-plan="N2 Urgent" data-days="3" data-amount="10000">
-          <b>N2 Urgent</b>
-          <span>Plus adapté aux besoins rapides ou sensibles.</span>
-          <strong>10 000 FCFA</strong>
-        </button>
-        <button class="plan" type="button" data-plan="N3 Semaine" data-days="7" data-amount="15000">
-          <b>N3 Semaine</b>
-          <span>Annonce maintenue une semaine après validation.</span>
-          <strong>15 000 FCFA</strong>
-        </button>
-      </div>
-    </section>
+1C · Driver / VTC
+Pour chauffeur voiture, transfert AIBD, taxi-local, service privé.
+19 900 FCFA
+29 € / mois
+Ton abonnement apporte une présence professionnelle, une fiche partageable, un lien, un QR, des messages prêts à envoyer et un accès métier DRIVER. DIGIY ne prend pas de commission sur tes courses.
+1 · Choisir
+Tu choisis ton tarif DRIVER selon ton activité réelle.
+2 · Payer
+Tu paies par Wave au nom de JB BEAUVILLE : +221 77 134 28 89.
+3 · Envoyer
+Tu envoies la preuve. DIGIY prépare ton accès proprement.
+Résumé
+Ton choix s’affiche ici avant l’envoi du message.
 
-    <form class="card" id="form">
-      <div class="cardTitle">📋 Préparer la mission</div>
+Module
+DRIVER
+Choix
+Aucun tarif choisi
+Montant
+—
+Total
+—
+💳 Paiement Wave officiel
+À régler avant validation
+Après avoir choisi ton tarif DRIVER, règle le montant par Wave, puis envoie la preuve par WhatsApp ou SMS.
 
-      <label for="title">Titre mission *</label>
-      <input id="title" maxlength="100" autocomplete="off" placeholder="Ex : Livraison urgente de documents à Dakar"/>
-
-      <div class="grid2">
-        <div>
-          <label for="zone">Zone *</label>
-          <input id="zone" maxlength="80" autocomplete="off" placeholder="Saly, Dakar, Mbour, Thiès…"/>
-        </div>
-        <div>
-          <label for="when">Quand ? *</label>
-          <input id="when" maxlength="80" autocomplete="off" placeholder="Aujourd’hui, ce soir, demain…"/>
-        </div>
-      </div>
-
-      <label for="contact">Contact mission / WhatsApp *</label>
-      <input id="contact" inputmode="tel" autocomplete="off" placeholder="Contact du déposant ou WhatsApp mission"/>
-
-      <label for="details">Détails</label>
-      <textarea id="details" maxlength="500" placeholder="Ce qu’il faut faire, durée, conditions, rémunération proposée si elle existe…"></textarea>
-
-      <div class="payBox" aria-label="Résumé paiement">
-        <div class="payLine"><span>Ticket choisi</span><b id="planLabel">N1 Express 48h</b></div>
-        <div class="payLine"><span>Durée</span><b id="daysLabel">48h</b></div>
-        <div class="payLine"><span>Montant à régler</span><b class="amount" id="amountLabel">5 000 FCFA</b></div>
-        <div class="payLine"><span>Statut après envoi</span><b>Attente paiement + validation</b></div>
-      </div>
-
-      <div class="actions">
-        <button class="btn main" id="previewBtn" type="button">👁️ Prévisualiser</button>
-        <a class="btn whats" id="payWa" href="#" target="_blank" rel="noopener">💬 Préparer paiement</a>
-      </div>
-
-      <div class="preview" id="preview"></div>
-      <div class="status" id="status">Remplis les champs, choisis une durée, puis prépare le paiement.</div>
-    </form>
-
-    <div class="footer">DIGIYLYFE ♾️ · NDIMBAL EXPRESS · VOIR GRATUIT · PUBLIER AVEC TICKET</div>
-  </main>
-
-  <script>
-  (function(){
-    "use strict";
-
-    const ADMIN_WHATSAPP = ""; // Option : mettre un numéro DIGIY ici si tu veux un lien WhatsApp direct. Vide = pas de numéro en dur.
-    const $ = id => document.getElementById(id);
-    const form = $("form");
-    const fields = {
-      title: $("title"),
-      zone: $("zone"),
-      when: $("when"),
-      contact: $("contact"),
-      details: $("details")
-    };
-
-    let selected = {plan:"N1 Express 48h", days:2, amount:5000};
-
-    function fmt(n){ return new Intl.NumberFormat("fr-FR").format(Number(n)||0) + " FCFA"; }
-    function clean(v){ return String(v||"").trim(); }
-    function valid(){
-      return clean(fields.title.value).length >= 6 &&
-             clean(fields.zone.value).length > 0 &&
-             clean(fields.when.value).length > 0 &&
-             clean(fields.contact.value).length >= 6;
-    }
-    function missionText(){
-      return [
-        "🎫 NDIMBAL Express · " + selected.plan,
-        "Montant : " + fmt(selected.amount),
-        "",
-        "Mission : " + (clean(fields.title.value) || "—"),
-        "Zone : " + (clean(fields.zone.value) || "—"),
-        "Quand : " + (clean(fields.when.value) || "—"),
-        "Contact mission : " + (clean(fields.contact.value) || "—"),
-        "",
-        "Détails :",
-        clean(fields.details.value) || "—",
-        "",
-        "Statut : attente paiement + validation DIGIY avant affichage public."
-      ].join("\\n");
-    }
-    function updatePlanUI(){
-      $("planLabel").textContent = selected.plan;
-      $("daysLabel").textContent = selected.days === 2 ? "48h" : selected.days + " jours";
-      $("amountLabel").textContent = fmt(selected.amount);
-      updatePayLink();
-    }
-    function updatePayLink(){
-      const text = missionText();
-      const wa = ADMIN_WHATSAPP.replace(/\\D/g,"");
-      const link = wa
-        ? "https://wa.me/" + wa + "?text=" + encodeURIComponent(text)
-        : "https://commencer-a-payer.digiylyfe.com/";
-      $("payWa").href = link;
-      $("payWa").textContent = wa ? "💬 Préparer paiement" : "📦 Ouvrir paiement / activation";
-    }
-    function preview(){
-      $("preview").textContent = missionText();
-      $("preview").classList.add("show");
-      $("status").className = valid() ? "status ok" : "status err";
-      $("status").textContent = valid()
-        ? "✅ Mission prête. Paiement à préparer, puis validation DIGIY avant publication."
-        : "⚠️ Champs obligatoires : titre, zone, contact et moment.";
-      updatePayLink();
-    }
-
-    document.querySelectorAll(".plan").forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        document.querySelectorAll(".plan").forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        selected = {
-          plan: btn.dataset.plan,
-          days: Number(btn.dataset.days || 2),
-          amount: Number(btn.dataset.amount || 5000)
-        };
-        updatePlanUI();
-        if($("preview").classList.contains("show")) preview();
-      });
-    });
-
-    Object.values(fields).forEach(el=>{
-      el.addEventListener("input",()=>{
-        try{
-          localStorage.setItem("digiy_ndimbal_inscription_draft_v1", JSON.stringify({
-            title:fields.title.value, zone:fields.zone.value, when:fields.when.value,
-            contact:fields.contact.value, details:fields.details.value, selected
-          }));
-        }catch(_){}
-        if($("preview").classList.contains("show")) preview();
-        else updatePayLink();
-      });
-    });
-
-    $("previewBtn").addEventListener("click", preview);
-
-    try{
-      const raw = localStorage.getItem("digiy_ndimbal_inscription_draft_v1");
-      if(raw){
-        const d = JSON.parse(raw);
-        ["title","zone","when","contact","details"].forEach(k=>{ if(d[k]) fields[k].value = d[k]; });
-        if(d.selected && d.selected.plan){
-          selected = d.selected;
-          document.querySelectorAll(".plan").forEach(b=>{
-            b.classList.toggle("active", b.dataset.plan === selected.plan);
-          });
-        }
-      }
-    }catch(_){}
-
-    updatePlanUI();
-  })();
-  </script>
-</body>
-</html>
+Nom
+JB BEAUVILLE
+Téléphone
++221 77 134 28 89
+Ton nom
+Ex : Mamadou Diop
+Téléphone
+Ex : +221 77 000 00 00
+Zone / ville
+Ex : Saly, Mbour, Dakar, AIBD
+Note pour identifier le paiement
+Ex : Paiement Wave envoyé pour DRIVER 1C — 19 900 FCFA — au nom de Mamadou Diop — tél +221 77 000 00 00.
+📲 WhatsApp
+💬 SMS
+Effacer
+Copier
+DIGIYLYFE · DRIVER · 0% commission · contact direct · le chauffeur garde son client, son argent et sa relation.
