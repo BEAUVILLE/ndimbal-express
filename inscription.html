@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
-  <meta name="digiy-version" content="ndimbal-annonces-inscription-wave-officiel-resume-20260613"/>
+  <meta name="digiy-version" content="ndimbal-annonces-inscription-wave-officiel-prix-20260613"/>
   <title>NDIMBAL Annonces — Inscription et paiement Wave</title>
   <meta name="description" content="NDIMBAL Annonces : choisir une durée, préparer une annonce, régler par Wave, envoyer la preuve, validation DIGIY avant affichage public."/>
 
@@ -117,7 +117,7 @@
       <div class="kicker">Inscription · annonce · Wave · validation DIGIY</div>
       <h1>Publier une annonce terrain.</h1>
       <p class="lead">
-        Choisis la durée, écris ton annonce, règle le ticket par Wave, puis envoie la preuve.
+        Choisis la durée, écris ton annonce — voiture, terrain, maison, vélo, studio, service — indique le prix demandé, règle le ticket par Wave, puis envoie la preuve.
         DIGIY valide avant affichage public.
       </p>
       <div class="rule">
@@ -125,7 +125,7 @@
         Le paiement se fait uniquement par Wave. DIGIY ne prend pas de commission sur les affaires entre personnes.
       </div>
       <div class="steps">
-        <div class="step"><b>1 · Choisir</b><span>Tu choisis la durée de ton annonce.</span></div>
+        <div class="step"><b>1 · Choisir</b><span>Tu choisis la durée et tu indiques le prix demandé.</span></div>
         <div class="step"><b>2 · Payer</b><span>Tu paies par Wave au nom de JB BEAUVILLE.</span></div>
         <div class="step"><b>3 · Envoyer</b><span>Tu envoies la preuve. DIGIY valide l’affichage.</span></div>
       </div>
@@ -145,8 +145,9 @@
       <select id="category">
         <option value="Annonce courte">📣 Annonce courte</option>
         <option value="Location studio / appartement">🏠 Location studio / appartement</option>
-        <option value="Maison / terrain">🏡 Maison / terrain</option>
-        <option value="Voiture">🚗 Voiture</option>
+        <option value="Maison / terrain">🏡 Vente maison / terrain</option>
+        <option value="Voiture">🚗 Vente voiture</option>
+        <option value="Vélo">🚲 Vente vélo</option>
         <option value="Vente objet / produit">🛍️ Vente objet / produit</option>
         <option value="Service / aide">🤝 Service / aide</option>
         <option value="Recherche">🔎 Recherche</option>
@@ -154,7 +155,18 @@
       </select>
 
       <label for="title">Titre annonce *</label>
-      <input id="title" maxlength="100" autocomplete="off" placeholder="Ex : Studio à louer à Saly · Terrain à vendre · Voiture disponible"/>
+      <input id="title" maxlength="100" autocomplete="off" placeholder="Ex : Vente voiture · Terrain à vendre · Maison à vendre · Vélo à vendre"/>
+      <div class="grid2">
+        <div>
+          <label for="price">Prix demandé</label>
+          <input id="price" inputmode="numeric" maxlength="60" autocomplete="off" placeholder="Ex : 3 500 000 FCFA · 45 000 FCFA · Prix à discuter"/>
+        </div>
+        <div>
+          <label for="priceNote">Précision prix</label>
+          <input id="priceNote" maxlength="80" autocomplete="off" placeholder="Ex : négociable, ferme, avance, location/mois"/>
+        </div>
+      </div>
+
 
       <div class="grid2">
         <div>
@@ -168,7 +180,7 @@
       </div>
 
       <label for="details">Détails annonce</label>
-      <textarea id="details" maxlength="700" placeholder="Prix demandé si tu veux, conditions, description, disponibilité, quartier, état, surface, documents, rendez-vous…"></textarea>
+      <textarea id="details" maxlength="700" placeholder="Conditions, description, disponibilité, quartier, état, surface, documents, rendez-vous. Le prix demandé est déjà dans le champ prix."></textarea>
 
       <section class="summary" aria-label="Résumé">
         <div class="cardTitle" style="margin:0">Résumé</div>
@@ -233,6 +245,8 @@
     const fields = {
       category:$("category"),
       title:$("title"),
+      price:$("price"),
+      priceNote:$("priceNote"),
       zone:$("zone"),
       contact:$("contact"),
       details:$("details"),
@@ -261,7 +275,7 @@
       const s = selected();
       const name = clean(fields.payerName.value) || "—";
       const phone = clean(fields.payerPhone.value) || clean(fields.contact.value) || "—";
-      return "Paiement Wave envoyé pour NDIMBAL Annonces — " + s.label + " — " + fmt(s.amount) + " — au nom de " + name + " — tél " + phone + ".";
+      return "Paiement Wave envoyé pour NDIMBAL Annonces — " + s.label + " — " + fmt(s.amount) + " — annonce : " + (clean(fields.title.value) || "sans titre") + " — prix demandé : " + (clean(fields.price.value) || "non précisé") + " — au nom de " + name + " — tél " + phone + ".";
     }
     function message(){
       const s = selected();
@@ -272,6 +286,8 @@
         "",
         "Catégorie : " + clean(fields.category.value),
         "Titre : " + (clean(fields.title.value) || "—"),
+        "Prix demandé : " + (clean(fields.price.value) || "—"),
+        "Précision prix : " + (clean(fields.priceNote.value) || "—"),
         "Zone : " + (clean(fields.zone.value) || "—"),
         "Contact annonce : " + (clean(fields.contact.value) || "—"),
         "",
@@ -309,6 +325,8 @@
           duration:duration.value,
           category:fields.category.value,
           title:fields.title.value,
+          price:fields.price.value,
+          priceNote:fields.priceNote.value,
           zone:fields.zone.value,
           contact:fields.contact.value,
           details:fields.details.value,
@@ -350,7 +368,7 @@
     $("clearBtn").addEventListener("click", () => {
       if(!confirm("Effacer l’annonce préparée ?")) return;
       try{ localStorage.removeItem("digiy_ndimbal_annonce_wave_draft_v1"); }catch(_){}
-      ["title","zone","contact","details","payerName","payerPhone","payNote"].forEach(k => fields[k].value = "");
+      ["title","price","priceNote","zone","contact","details","payerName","payerPhone","payNote"].forEach(k => fields[k].value = "");
       fields.payNote.dataset.auto = "1";
       duration.selectedIndex = 0;
       fields.category.selectedIndex = 0;
@@ -362,7 +380,7 @@
       if(raw){
         const d = JSON.parse(raw);
         if(d.duration) duration.value = d.duration;
-        ["category","title","zone","contact","details","payerName","payerPhone","payNote"].forEach(k=>{
+        ["category","title","price","priceNote","zone","contact","details","payerName","payerPhone","payNote"].forEach(k=>{
           if(d[k]) fields[k].value = d[k];
         });
         fields.payNote.dataset.auto = d.autoNote || (d.payNote ? "0" : "1");
@@ -378,4 +396,5 @@
   </script>
 </body>
 </html>
+
 
