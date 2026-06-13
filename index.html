@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="index,follow"/>
-  <meta name="digiy-version" content="ndimbal-express-index-annonces-lien-inscription-final-20260613"/>
+  <meta name="digiy-version" content="ndimbal-express-index-annonces-exemples-terrain-20260613"/>
   <title>NDIMBAL Annonces — Mur public des annonces validées</title>
   <meta name="description" content="NDIMBAL Annonces : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission."/>
 
@@ -476,6 +476,82 @@
       opacity:.88;
     }
 
+
+    .examplesBlock{
+      margin-top:14px;
+      border:1px solid rgba(250,204,21,.24);
+      border-radius:26px;
+      background:
+        radial-gradient(420px 180px at 0% 0%,rgba(250,204,21,.13),transparent 65%),
+        linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
+      padding:14px;
+      box-shadow:0 14px 30px rgba(0,0,0,.18);
+    }
+    .examplesTitle{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .examplesTitle strong{
+      color:#fff8db;
+      font-size:22px;
+      font-weight:1000;
+      letter-spacing:-.035em;
+    }
+    .examplesTitle span{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+      line-height:1.35;
+    }
+    .examplesGrid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:9px;
+    }
+    .exampleCard{
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(0,0,0,.13);
+      padding:12px;
+      min-height:148px;
+      display:grid;
+      gap:7px;
+    }
+    .exampleIcon{font-size:27px}
+    .exampleCard b{
+      color:#fff;
+      font-size:15px;
+      line-height:1.15;
+      font-weight:1000;
+    }
+    .exampleCard small{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.35;
+      font-weight:850;
+    }
+    .examplePrice{
+      width:max-content;
+      max-width:100%;
+      border-radius:999px;
+      border:1px solid rgba(34,197,94,.34);
+      background:rgba(34,197,94,.12);
+      color:#bbf7d0;
+      padding:6px 9px;
+      font-size:11px;
+      font-weight:1000;
+    }
+    @media(max-width:900px){
+      .examplesGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:520px){
+      .examplesGrid{grid-template-columns:1fr}
+    }
+
     .hidden{display:none!important}
 
     @media(max-width:760px){
@@ -514,7 +590,7 @@
           <h1>NDIMBAL Annonces</h1>
           <p class="lead">
             Découvre les annonces validées du terrain : location studio, appartement, vente terrain, vente maison,
-            vente voiture, vélo, objet, service, recherche ou annonce courte.
+            vente voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente.
             Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.
           </p>
           <div class="doctrine" aria-label="Doctrine NDIMBAL Annonces">
@@ -553,6 +629,46 @@
           <button class="audioBtn" id="audioPlay" type="button">🎧 Écouter</button>
           <button class="audioBtn stop" id="audioStop" type="button">⏹ Stop</button>
         </div>
+      </div>
+    </section>
+
+    <section class="examplesBlock" aria-label="Exemples annonces terrain">
+      <div class="examplesTitle">
+        <div>
+          <strong>Exemples terrain</strong><br>
+          <span>Le prix demandé est affiché pour éviter les appels inutiles.</span>
+        </div>
+        <a class="railBtn gold" href="./inscription.html">🎫 Publier une annonce</a>
+      </div>
+
+      <div class="examplesGrid">
+        <article class="exampleCard">
+          <div class="exampleIcon">🌍</div>
+          <b>Terrain à vendre</b>
+          <small>Zone, surface, papiers, accès, quartier.</small>
+          <div class="examplePrice">Prix demandé : 8 500 000 FCFA</div>
+        </article>
+
+        <article class="exampleCard">
+          <div class="exampleIcon">🏡</div>
+          <b>Maison à vendre</b>
+          <small>Nombre de pièces, quartier, état, visite.</small>
+          <div class="examplePrice">Prix demandé : 32 000 000 FCFA</div>
+        </article>
+
+        <article class="exampleCard">
+          <div class="exampleIcon">🚗</div>
+          <b>Voiture à vendre</b>
+          <small>Marque, année, état, papiers, visite.</small>
+          <div class="examplePrice">Prix demandé : 3 800 000 FCFA</div>
+        </article>
+
+        <article class="exampleCard">
+          <div class="exampleIcon">🚲</div>
+          <b>Vélo à vendre</b>
+          <small>État, taille, quartier, disponibilité.</small>
+          <div class="examplePrice">Prix demandé : 45 000 FCFA</div>
+        </article>
       </div>
     </section>
 
@@ -666,6 +782,8 @@
       const zone = readField(row, ["zone","location","ville","city","localisation"]) || "Zone à préciser";
       const when = readField(row, ["when_text","when","moment","urgence","date_text"]) || "Moment à préciser";
       const details = readField(row, ["details","description","body","note_public"]) || "Détails à confirmer avec la personne.";
+      const price = readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]);
+      const priceNote = readField(row, ["price_note","prix_note","priceNote","condition_prix"]);
       const phone = readField(row, ["phone","whatsapp","telephone","tel"]);
       const ref = readField(row, ["ref","reference","id"]);
 
@@ -686,6 +804,8 @@
           </div>
 
           <div class="details">${esc(details)}</div>
+
+          ${price ? `<div class="tag green">💰 Prix demandé : ${esc(price)}${priceNote ? " · " + esc(priceNote) : ""}</div>` : `<div class="tag">💰 Prix à préciser</div>`}
 
           ${phone ? `<div class="tag">📞 ${esc(phoneDisplay(phone))}</div>` : `<div class="tag">📞 Contact à préciser</div>`}
 
@@ -713,7 +833,9 @@
           readField(row, ["title","titre","mission_title","label"]),
           readField(row, ["zone","location","ville","city","localisation"]),
           readField(row, ["when_text","when","moment","urgence","date_text"]),
-          readField(row, ["details","description","body","note_public"])
+          readField(row, ["details","description","body","note_public"]),
+          readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]),
+          readField(row, ["price_note","prix_note","priceNote","condition_prix"])
         ].join(" "));
 
         const zoneValue = norm(readField(row, ["zone","location","ville","city","localisation"]));
@@ -861,6 +983,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
