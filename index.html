@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="index,follow"/>
-  <meta name="digiy-version" content="ndimbal-express-index-annonces-exemples-terrain-20260613"/>
+  <meta name="digiy-version" content="ndimbal-express-index-annonces-supabase-ndimbal-annonces-20260613"/>
   <title>NDIMBAL Annonces — Mur public des annonces validées</title>
   <meta name="description" content="NDIMBAL Annonces : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission."/>
 
@@ -337,7 +337,7 @@
       gap:12px;
     }
 
-    .missionCard{
+    .annonceCard{
       min-height:190px;
       border-radius:24px;
       border:1px solid rgba(255,255,255,.13);
@@ -355,7 +355,7 @@
       justify-content:space-between;
     }
 
-    .missionIcon{
+    .annonceIcon{
       width:52px;
       height:52px;
       border-radius:18px;
@@ -367,7 +367,7 @@
       font-size:26px;
     }
 
-    .missionTitle{
+    .annonceTitle{
       margin:0;
       color:#fff;
       font-size:19px;
@@ -567,7 +567,7 @@
       .quickBtn{flex:1 1 130px}
       .grid{grid-template-columns:1fr}
       .contactRow{grid-template-columns:1fr}
-      .missionTitle{font-size:20px}
+      .annonceTitle{font-size:20px}
       .audioBtn{flex:1 1 150px}
     }
   </style>
@@ -692,7 +692,7 @@
       <div class="countPill" id="countPill">Chargement…</div>
     </div>
 
-    <section class="grid" id="missionsGrid" aria-live="polite">
+    <section class="grid" id="annoncesGrid" aria-live="polite">
       <div class="empty">Chargement des annonces NDIMBAL…</div>
     </section>
 
@@ -712,16 +712,15 @@
 
     const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-    const TABLE_NAME = "jef_missions";
-    const PUBLIC_RPC = "ndimbal_public_missions";
+    const PUBLIC_RPC = "ndimbal_public_annonces";
 
     const SB = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-    const grid = document.getElementById("missionsGrid");
+    const grid = document.getElementById("annoncesGrid");
     const search = document.getElementById("search");
     const countPill = document.getElementById("countPill");
 
-    let allMissions = [];
+    let allAnnonces = [];
     let activeZone = "";
 
     function esc(s){
@@ -777,10 +776,11 @@
       return "";
     }
 
-    function missionCard(row){
-      const title = readField(row, ["title","titre","mission_title","label"]) || "Annonce NDIMBAL";
+    function annonceCard(row){
+      const title = readField(row, ["title","titre","label"]) || "Annonce NDIMBAL";
       const zone = readField(row, ["zone","location","ville","city","localisation"]) || "Zone à préciser";
-      const when = readField(row, ["when_text","when","moment","urgence","date_text"]) || "Moment à préciser";
+      const category = readField(row, ["category","categorie","type"]) || "";
+      const when = readField(row, ["duration_label","when_text","when","moment","urgence","date_text"]) || "Durée à préciser";
       const details = readField(row, ["details","description","body","note_public"]) || "Détails à confirmer avec la personne.";
       const price = readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]);
       const priceNote = readField(row, ["price_note","prix_note","priceNote","condition_prix"]);
@@ -788,15 +788,16 @@
       const ref = readField(row, ["ref","reference","id"]);
 
       return `
-        <article class="missionCard">
+        <article class="annonceCard">
           <div class="cardTop">
             <div style="display:flex;gap:12px;align-items:flex-start;min-width:0">
-              <div class="missionIcon">💼</div>
+              <div class="annonceIcon">💼</div>
               <div style="min-width:0">
-                <h2 class="missionTitle">${esc(title)}</h2>
+                <h2 class="annonceTitle">${esc(title)}</h2>
                 <div class="meta" style="margin-top:8px">
                   <span class="tag green">📍 ${esc(zone)}</span>
-                  <span class="tag">⏰ ${esc(when)}</span>
+                  ${category ? `<span class="tag">📌 ${esc(category)}</span>` : ""}
+                  <span class="tag">⏳ ${esc(when)}</span>
                   ${ref ? `<span class="tag">#${esc(ref)}</span>` : ""}
                 </div>
               </div>
@@ -822,17 +823,18 @@
       return ["approved","approve","published","public","validated","valide","validé","active","online"].includes(s);
     }
 
-    function filterMissions(){
+    function filterAnnonces(){
       const q = norm(search.value);
       const z = norm(activeZone);
 
-      return allMissions.filter(row => {
+      return allAnnonces.filter(row => {
         if(!statusOk(row)) return false;
 
         const hay = norm([
-          readField(row, ["title","titre","mission_title","label"]),
+          readField(row, ["title","titre","label"]),
+          readField(row, ["category","categorie","type"]),
           readField(row, ["zone","location","ville","city","localisation"]),
-          readField(row, ["when_text","when","moment","urgence","date_text"]),
+          readField(row, ["duration_label","when_text","when","moment","urgence","date_text"]),
           readField(row, ["details","description","body","note_public"]),
           readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]),
           readField(row, ["price_note","prix_note","priceNote","condition_prix"])
@@ -845,7 +847,7 @@
     }
 
     function render(){
-      const list = filterMissions();
+      const list = filterAnnonces();
 
       countPill.textContent = list.length + " annonce" + (list.length > 1 ? "s" : "");
 
@@ -860,10 +862,10 @@
         return;
       }
 
-      grid.innerHTML = list.map(missionCard).join("");
+      grid.innerHTML = list.map(annonceCard).join("");
     }
 
-    async function loadMissions(){
+    async function loadAnnonces(){
       if(!SB){
         grid.innerHTML = `<div class="empty">Supabase indisponible sur ce navigateur.</div>`;
         countPill.textContent = "Erreur";
@@ -875,44 +877,49 @@
 
       try{
         /*
-          La page publique ne doit afficher que les lignes validées.
-          On charge une petite fenêtre, puis on filtre côté client avec statusOk
-          pour rester compatible avec les statuts déjà utilisés dans tes fichiers.
+          La page publique lit la fonction ndimbal_public_annonces.
+          Elle renvoie uniquement les annonces validées / publiées / actives.
         */
-        const { data, error } = await SB.rpc("ndimbal_public_missions", {
-          p_limit: 80
+        const { data, error } = await SB.rpc(PUBLIC_RPC, {
+          p_limit: 80,
+          p_query: search.value || null,
+          p_zone: activeZone || null
         });
 
         if(error) throw error;
 
-        allMissions = Array.isArray(data) ? data : [];
+        allAnnonces = Array.isArray(data) ? data : [];
         render();
       }catch(err){
         console.error(err);
         grid.innerHTML = `
           <div class="empty">
             Impossible de charger les annonces publiques.<br>
-            Vérifie la fonction publique <b>${esc(PUBLIC_RPC)}</b>, les statuts validés et les droits EXECUTE.
+            Vérifie la fonction publique <b>${esc(PUBLIC_RPC)}</b>, les statuts publiés et les droits EXECUTE.
           </div>
         `;
         countPill.textContent = "Erreur";
       }
     }
 
-    search.addEventListener("input", render);
+    let searchTimer = null;
+    search.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(loadAnnonces, 260);
+    });
 
     document.querySelectorAll("[data-zone]").forEach(btn => {
       btn.addEventListener("click", () => {
         activeZone = btn.getAttribute("data-zone") || "";
         document.querySelectorAll("[data-zone]").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        render();
+        loadAnnonces();
       });
     });
 
-    document.getElementById("refreshBtn").addEventListener("click", loadMissions);
+    document.getElementById("refreshBtn").addEventListener("click", loadAnnonces);
 
-    loadMissions();
+    loadAnnonces();
   })();
   </script>
 
@@ -983,6 +990,16 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
