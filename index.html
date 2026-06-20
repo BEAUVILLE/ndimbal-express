@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="index,follow"/>
   <meta name="digiy-version" content="ndimbal-express-index-annonces-supabase-ndimbal-annonces-20260613"/>
+  <!-- DIGIY LINK RULE: internal NDIMBAL links stay relative: ./index.html and ./inscription.html for GitHub Pages/CNAME reliability. -->
+  <meta name="digiy-links" content="absolute-ndimbal-express-20260620"/>
   <title>NDIMBAL Annonces — Mur public des annonces validées</title>
   <meta name="description" content="NDIMBAL Annonces : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission."/>
 
@@ -552,6 +554,38 @@
       .examplesGrid{grid-template-columns:1fr}
     }
 
+
+    /* ===== DIGIY LANG SWITCH — FR maître / EN bouton ===== */
+    .digiyLangSwitch{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      min-height:46px;
+      padding:4px;
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,.28);
+      background:rgba(8,47,33,.72);
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+    }
+    .digiyLangSwitch button{
+      min-height:36px;
+      min-width:44px;
+      border:0;
+      border-radius:999px;
+      background:transparent;
+      color:#fff8db;
+      padding:0 12px;
+      font-size:12px;
+      font-weight:1000;
+      cursor:pointer;
+      touch-action:manipulation;
+    }
+    .digiyLangSwitch button.active{
+      color:#052e16;
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      box-shadow:0 8px 18px rgba(0,0,0,.14);
+    }
+
     .hidden{display:none!important}
 
     @media(max-width:760px){
@@ -576,10 +610,14 @@
 <body>
   <main class="page">
     <nav class="topRail" aria-label="Navigation NDIMBAL Annonces">
+      <!-- DIGIY: le mur public est la racine/index.html du dépôt. Aucun fichier mur-annonces.html. -->
       <a class="railBtn" href="https://digiylyfe.com/" rel="noopener">🌍 Site</a>
       <a class="railBtn" href="https://digiy-hub.digiylyfe.com/" rel="noopener">🧭 HUB</a>
-      <a class="railBtn active" href="./index.html" aria-current="page">📣 Mur annonces</a>
-      <a class="railBtn gold" href="./inscription.html">🎫 Publier une annonce</a>
+      <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
+      <div class="digiyLangSwitch" aria-label="Choisir la langue">
+        <button id="digiyLangFr" type="button" class="active">FR</button>
+        <button id="digiyLangEn" type="button">EN</button>
+      </div>
     </nav>
 
     <section class="hero" aria-label="NDIMBAL Annonces public">
@@ -607,7 +645,7 @@
             <span>1 mois · 20 000 FCFA</span>
           </div>
           <div class="doctrine" aria-label="Action NDIMBAL Annonces">
-            <a class="railBtn gold" href="./inscription.html">🎫 Publier une annonce</a>
+            <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
             <span>Voir gratuit</span>
             <span>Validation DIGIY avant affichage</span>
           </div>
@@ -638,7 +676,7 @@
           <strong>Exemples terrain</strong><br>
           <span>Le prix demandé est affiché pour éviter les appels inutiles.</span>
         </div>
-        <a class="railBtn gold" href="./inscription.html">🎫 Publier une annonce</a>
+        <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
       </div>
 
       <div class="examplesGrid">
@@ -722,6 +760,138 @@
 
     let allAnnonces = [];
     let activeZone = "";
+    let LANG = "fr";
+    window.DIGIY_NDIMBAL_LANG = "fr";
+
+    const I18N = {
+      fr:{
+        docTitle:"NDIMBAL Annonces — Mur public des annonces validées",
+        docDesc:"NDIMBAL Annonces : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission.",
+        nav:["🌍 Site","🧭 HUB","🎫 Publier une annonce"],
+        kicker:"Petites annonces terrain · contact direct · 0% commission",
+        h1:"NDIMBAL Annonces",
+        lead:"Découvre les annonces validées du terrain : location studio, appartement, vente terrain, vente maison, vente voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente. Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.",
+        doctrine1:["Voir gratuit","Publier avec ticket","Annonces validées","Contact direct","0% commission","Le terrain garde la main"],
+        doctrine2:["1 semaine · 5 000 FCFA","15 jours · 10 000 FCFA","1 mois · 20 000 FCFA"],
+        doctrine3:["Voir gratuit","Validation DIGIY avant affichage"],
+        doctrine4:["🚗 Vente voiture","🌍 Vente terrain","🏡 Vente maison","🚲 Vente vélo"],
+        publish:"🎫 Publier une annonce",
+        audioTitle:"🎧 Comprendre NDIMBAL Annonces",
+        audioText:"Une courte voix explique comment lire une annonce, contacter directement et publier avec ticket durée sans commission DIGIY.",
+        audioPlay:"🎧 Écouter", audioReading:"⏸️ Lecture en cours",
+        examplesTitle:"Exemples terrain",
+        examplesSub:"Le prix demandé est affiché pour éviter les appels inutiles.",
+        examples:[["Terrain à vendre","Zone, surface, papiers, accès, quartier.","Prix demandé : 8 500 000 FCFA"],["Maison à vendre","Nombre de pièces, quartier, état, visite.","Prix demandé : 32 000 000 FCFA"],["Voiture à vendre","Marque, année, état, papiers, visite.","Prix demandé : 3 800 000 FCFA"],["Vélo à vendre","État, taille, quartier, disponibilité.","Prix demandé : 45 000 FCFA"]],
+        searchPlaceholder:"Rechercher : vente voiture, terrain, maison, vélo, studio, service, Dakar, Saly…",
+        quick:["Tout","Saly","Dakar","Mbour","Thiès","🔄 Recharger"],
+        sectionTitle:"Annonces disponibles",
+        sectionSub:"Seules les annonces validées doivent apparaître ici.",
+        count:function(n){ return n + " annonce" + (n > 1 ? "s" : ""); },
+        loading:"Chargement…", error:"Erreur",
+        loadingGrid:"Chargement des annonces NDIMBAL…",
+        emptyHtml:'Aucune annonce validée pour le moment.<br>Reviens plus tard ou publie une annonce via la page d’inscription.<br><br><a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>',
+        noSupabase:"Supabase indisponible sur ce navigateur.",
+        loadError:function(rpc){ return 'Impossible de charger les annonces publiques.<br>Vérifie la fonction publique <b>'+esc(rpc)+'</b>, les statuts publiés et les droits EXECUTE.'; },
+        zoneUnknown:"Zone à préciser", durationUnknown:"Durée à préciser", detailsUnknown:"Détails à confirmer avec la personne.", pricePrefix:"💰 Prix demandé :", priceUnknown:"💰 Prix à préciser", contactUnknown:"📞 Contact à préciser",
+        whatsapp:"💬 WhatsApp", sms:"✉️ SMS",
+        note:'<b>Règle DIGIY :</b> cette page est publique. Voir les annonces est gratuit. Pour publier, il faut passer par l’inscription, choisir une durée, régler le ticket, puis attendre la validation DIGIY. Les conditions, le prix, le lieu précis et le paiement de l’annonce se discutent directement entre les personnes. DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.',
+        footer:"DIGIYLYFE ♾️ · NDIMBAL ANNONCES · DIRECT AU PEUPLE",
+        waMsg:function(title){return "Bonjour, je viens de voir l’annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";},
+        smsMsg:function(title){return "Bonjour, annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";}
+      },
+      en:{
+        docTitle:"NDIMBAL Ads — Public wall of approved ads",
+        docDesc:"NDIMBAL Ads: public wall of approved local ads — rentals, sales, land, houses, cars, services and short ads. Free to view, paid duration ticket to publish, direct contact, 0% commission.",
+        nav:["🌍 Site","🧭 HUB","🎫 Publish an ad"],
+        kicker:"Local classified ads · direct contact · 0% commission",
+        h1:"NDIMBAL Ads",
+        lead:"Browse approved local ads: studio rental, apartment, land for sale, house for sale, car, bicycle, item, service, request or short ad, with an asking price when it is a sale. Contact stays direct between people. DIGIYLYFE takes no commission.",
+        doctrine1:["Free to view","Publish with a ticket","Approved ads","Direct contact","0% commission","The field keeps control"],
+        doctrine2:["1 week · 5,000 FCFA","15 days · 10,000 FCFA","1 month · 20,000 FCFA"],
+        doctrine3:["Free to view","DIGIY validation before public display"],
+        doctrine4:["🚗 Car for sale","🌍 Land for sale","🏡 House for sale","🚲 Bicycle for sale"],
+        publish:"🎫 Publish an ad",
+        audioTitle:"🎧 Understand NDIMBAL Ads",
+        audioText:"A short voice explains how to read an ad, contact directly and publish with a duration ticket without DIGIY commission.",
+        audioPlay:"🎧 Listen", audioReading:"⏸️ Reading",
+        examplesTitle:"Local examples",
+        examplesSub:"The asking price is shown to avoid unnecessary calls.",
+        examples:[["Land for sale","Area, surface, papers, access, neighborhood.","Asking price: 8,500,000 FCFA"],["House for sale","Rooms, neighborhood, condition, visit.","Asking price: 32,000,000 FCFA"],["Car for sale","Brand, year, condition, papers, visit.","Asking price: 3,800,000 FCFA"],["Bicycle for sale","Condition, size, neighborhood, availability.","Asking price: 45,000 FCFA"]],
+        searchPlaceholder:"Search: car for sale, land, house, bicycle, studio, service, Dakar, Saly…",
+        quick:["All","Saly","Dakar","Mbour","Thiès","🔄 Reload"],
+        sectionTitle:"Available ads",
+        sectionSub:"Only approved ads should appear here.",
+        count:function(n){ return n + " ad" + (n > 1 ? "s" : ""); },
+        loading:"Loading…", error:"Error",
+        loadingGrid:"Loading NDIMBAL ads…",
+        emptyHtml:'No approved ad for the moment.<br>Come back later or publish an ad through inscription.html.<br><br><a class="railBtn gold" href="inscription.html">🎫 Publish an ad</a>',
+        noSupabase:"Supabase is unavailable in this browser.",
+        loadError:function(rpc){ return 'Unable to load public ads.<br>Check the public function <b>'+esc(rpc)+'</b>, published statuses and EXECUTE rights.'; },
+        zoneUnknown:"Area to confirm", durationUnknown:"Duration to confirm", detailsUnknown:"Details to confirm with the person.", pricePrefix:"💰 Asking price:", priceUnknown:"💰 Price to confirm", contactUnknown:"📞 Contact to confirm",
+        whatsapp:"💬 WhatsApp", sms:"✉️ SMS",
+        note:'<b>DIGIY rule:</b> this page is public. Viewing ads is free. To publish, go through registration, choose a duration, pay the ticket, then wait for DIGIY validation. Conditions, asking price, exact location and payment are discussed directly between people. DIGIYLYFE takes no commission and does not replace human validation.',
+        footer:"DIGIYLYFE ♾️ · NDIMBAL ADS · DIRECT TO THE PEOPLE",
+        waMsg:function(title){return "Hello, I saw the NDIMBAL ad: " + (title || "ad") + ". I would like more information.";},
+        smsMsg:function(title){return "Hello, NDIMBAL ad: " + (title || "ad") + ". I would like more information.";}
+      }
+    };
+
+    function L(){ return I18N[LANG] || I18N.fr; }
+    function setText(sel, value){ const el = typeof sel === "string" ? document.querySelector(sel) : sel; if(el) el.textContent = value; }
+    function setHtml(sel, value){ const el = typeof sel === "string" ? document.querySelector(sel) : sel; if(el) el.innerHTML = value; }
+    function setSpanList(container, values){ if(!container || !values) return; Array.from(container.querySelectorAll("span")).forEach((el,i)=>{ if(values[i] !== undefined) el.textContent = values[i]; }); }
+
+    function applyLanguage(lang, updateUrl){
+      LANG = lang === "en" ? "en" : "fr";
+      window.DIGIY_NDIMBAL_LANG = LANG;
+      const d = L();
+      document.documentElement.lang = LANG;
+      document.title = d.docTitle;
+      const desc = document.querySelector('meta[name="description"]');
+      if(desc) desc.setAttribute("content", d.docDesc);
+
+      Array.from(document.querySelectorAll(".topRail > a")).slice(0,3).forEach((a,i)=>{ if(d.nav[i]) a.textContent = d.nav[i]; });
+      setText(".hero .kicker", d.kicker);
+      setText(".hero h1", d.h1);
+      setText(".hero .lead", d.lead);
+
+      const docs = Array.from(document.querySelectorAll(".doctrine"));
+      setSpanList(docs[0], d.doctrine1);
+      setSpanList(docs[1], d.doctrine2);
+      if(docs[2]){ const pub = docs[2].querySelector("a.railBtn.gold"); if(pub) pub.textContent = d.publish; setSpanList(docs[2], d.doctrine3); }
+      setSpanList(docs[3], d.doctrine4);
+
+      setText(".audioTitle", d.audioTitle);
+      setText(".audioText", d.audioText);
+      setText("#audioPlay", d.audioPlay);
+      setText("#audioStop", "⏹ Stop");
+
+      setText(".examplesTitle strong", d.examplesTitle);
+      setText(".examplesTitle span", d.examplesSub);
+      const ep = document.querySelector(".examplesTitle a.railBtn.gold"); if(ep) ep.textContent = d.publish;
+      Array.from(document.querySelectorAll(".exampleCard")).forEach((card,i)=>{ const row=d.examples[i]; if(row){ setText(card.querySelector("b"), row[0]); setText(card.querySelector("small"), row[1]); setText(card.querySelector(".examplePrice"), row[2]); }});
+
+      if(search) search.placeholder = d.searchPlaceholder;
+      Array.from(document.querySelectorAll(".quickBtn")).forEach((btn,i)=>{ if(d.quick[i]) btn.textContent = d.quick[i]; });
+      setText(".sectionTitle", d.sectionTitle);
+      setText(".sectionSub", d.sectionSub);
+      setHtml(".note", d.note);
+      setText(".footer", d.footer);
+
+      const frBtn = document.getElementById("digiyLangFr");
+      const enBtn = document.getElementById("digiyLangEn");
+      if(frBtn) frBtn.classList.toggle("active", LANG === "fr");
+      if(enBtn) enBtn.classList.toggle("active", LANG === "en");
+
+      try{
+        const u = new URL(location.href);
+        if(LANG === "en") u.searchParams.set("lang","en");
+        else u.searchParams.delete("lang");
+        if(updateUrl) history.replaceState({}, "", u.pathname + u.search + u.hash);
+      }catch(_){}
+
+      render();
+    }
 
     function esc(s){
       return String(s ?? "")
@@ -757,14 +927,14 @@
 
     function waLink(phone, title){
       const p = digits(phone);
-      const msg = "Bonjour, je viens de voir l’annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";
+      const msg = L().waMsg(title);
       if(!p) return "#";
       return "https://wa.me/" + p + "?text=" + encodeURIComponent(msg);
     }
 
     function smsLink(phone, title){
       const p = digits(phone);
-      const msg = "Bonjour, annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";
+      const msg = L().smsMsg(title);
       if(!p) return "#";
       return "sms:+" + p + "?body=" + encodeURIComponent(msg);
     }
@@ -777,11 +947,12 @@
     }
 
     function annonceCard(row){
+      const d = L();
       const title = readField(row, ["title","titre","label"]) || "Annonce NDIMBAL";
-      const zone = readField(row, ["zone","location","ville","city","localisation"]) || "Zone à préciser";
+      const zone = readField(row, ["zone","location","ville","city","localisation"]) || d.zoneUnknown;
       const category = readField(row, ["category","categorie","type"]) || "";
-      const when = readField(row, ["duration_label","when_text","when","moment","urgence","date_text"]) || "Durée à préciser";
-      const details = readField(row, ["details","description","body","note_public"]) || "Détails à confirmer avec la personne.";
+      const when = readField(row, ["duration_label","when_text","when","moment","urgence","date_text"]) || d.durationUnknown;
+      const details = readField(row, ["details","description","body","note_public"]) || d.detailsUnknown;
       const price = readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]);
       const priceNote = readField(row, ["price_note","prix_note","priceNote","condition_prix"]);
       const phone = readField(row, ["phone","whatsapp","telephone","tel"]);
@@ -806,13 +977,13 @@
 
           <div class="details">${esc(details)}</div>
 
-          ${price ? `<div class="tag green">💰 Prix demandé : ${esc(price)}${priceNote ? " · " + esc(priceNote) : ""}</div>` : `<div class="tag">💰 Prix à préciser</div>`}
+          ${price ? `<div class="tag green">${esc(d.pricePrefix)} ${esc(price)}${priceNote ? " · " + esc(priceNote) : ""}</div>` : `<div class="tag">${esc(d.priceUnknown)}</div>`}
 
-          ${phone ? `<div class="tag">📞 ${esc(phoneDisplay(phone))}</div>` : `<div class="tag">📞 Contact à préciser</div>`}
+          ${phone ? `<div class="tag">📞 ${esc(phoneDisplay(phone))}</div>` : `<div class="tag">${esc(d.contactUnknown)}</div>`}
 
           <div class="contactRow">
-            <a class="contactBtn whatsapp" href="${esc(waLink(phone,title))}" target="_blank" rel="noopener">💬 WhatsApp</a>
-            <a class="contactBtn" href="${esc(smsLink(phone,title))}">✉️ SMS</a>
+            <a class="contactBtn whatsapp" href="${esc(waLink(phone,title))}" target="_blank" rel="noopener">${esc(d.whatsapp)}</a>
+            <a class="contactBtn" href="${esc(smsLink(phone,title))}">${esc(d.sms)}</a>
           </div>
         </article>
       `;
@@ -849,15 +1020,11 @@
     function render(){
       const list = filterAnnonces();
 
-      countPill.textContent = list.length + " annonce" + (list.length > 1 ? "s" : "");
+      countPill.textContent = L().count(list.length);
 
       if(!list.length){
         grid.innerHTML = `
-          <div class="empty">
-            Aucune annonce validée pour le moment.<br>
-            Reviens plus tard ou publie une annonce via inscription.html.<br><br>
-            <a class="railBtn gold" href="./inscription.html">🎫 Publier une annonce</a>
-          </div>
+          <div class="empty">${L().emptyHtml}</div>
         `;
         return;
       }
@@ -867,13 +1034,13 @@
 
     async function loadAnnonces(){
       if(!SB){
-        grid.innerHTML = `<div class="empty">Supabase indisponible sur ce navigateur.</div>`;
-        countPill.textContent = "Erreur";
+        grid.innerHTML = `<div class="empty">${L().noSupabase}</div>`;
+        countPill.textContent = L().error;
         return;
       }
 
-      grid.innerHTML = `<div class="empty">Chargement des annonces NDIMBAL…</div>`;
-      countPill.textContent = "Chargement…";
+      grid.innerHTML = `<div class="empty">${L().loadingGrid}</div>`;
+      countPill.textContent = L().loading;
 
       try{
         /*
@@ -892,13 +1059,8 @@
         render();
       }catch(err){
         console.error(err);
-        grid.innerHTML = `
-          <div class="empty">
-            Impossible de charger les annonces publiques.<br>
-            Vérifie la fonction publique <b>${esc(PUBLIC_RPC)}</b>, les statuts publiés et les droits EXECUTE.
-          </div>
-        `;
-        countPill.textContent = "Erreur";
+        grid.innerHTML = `<div class="empty">${L().loadError(PUBLIC_RPC)}</div>`;
+        countPill.textContent = L().error;
       }
     }
 
@@ -919,6 +1081,13 @@
 
     document.getElementById("refreshBtn").addEventListener("click", loadAnnonces);
 
+    const langFrBtn = document.getElementById("digiyLangFr");
+    const langEnBtn = document.getElementById("digiyLangEn");
+    if(langFrBtn) langFrBtn.addEventListener("click", () => applyLanguage("fr", true));
+    if(langEnBtn) langEnBtn.addEventListener("click", () => applyLanguage("en", true));
+
+    const initialLang = new URL(location.href).searchParams.get("lang") === "en" ? "en" : "fr";
+    applyLanguage(initialLang, false);
     loadAnnonces();
   })();
   </script>
@@ -927,11 +1096,22 @@
   (function(){
     "use strict";
 
-    const text =
+    const textFr =
       "Bienvenue dans NDIMBAL Annonces. Ici, tu vois le mur public des annonces validées. " +
       "Tu peux chercher par zone, lire le titre, la catégorie, les détails, puis contacter directement par Ouatsap ou S M S. " +
       "DIGIYLYFE ne prend aucune commission. Les conditions et le paiement se discutent directement entre les personnes. " +
       "Pour publier une annonce, appuie sur Publier une annonce. L’inscription permet de choisir la durée : semaine, quinzaine ou mois. DIGIY valide avant affichage public.";
+
+    const textEn =
+      "Welcome to NDIMBAL Ads. Here you can see the public wall of approved local ads. " +
+      "You can search by area, read the title, category and details, then contact directly by WhatsApp or SMS. " +
+      "DIGIYLYFE takes no commission. Conditions and payment are discussed directly between people. " +
+      "To publish an ad, press Publish an ad. Registration lets you choose a duration: one week, fifteen days or one month. DIGIY validates before public display.";
+
+    function currentLang(){ return window.DIGIY_NDIMBAL_LANG === "en" ? "en" : "fr"; }
+    function currentText(){ return currentLang() === "en" ? textEn : textFr; }
+    function playLabel(){ return currentLang() === "en" ? "🎧 Listen" : "🎧 Écouter"; }
+    function readingLabel(){ return currentLang() === "en" ? "⏸️ Reading" : "⏸️ Lecture en cours"; }
 
     const play = document.getElementById("audioPlay");
     const stop = document.getElementById("audioStop");
@@ -943,6 +1123,12 @@
     function pickVoice(){
       if(!canSpeak()) return null;
       const voices = window.speechSynthesis.getVoices() || [];
+      if(currentLang() === "en"){
+        return voices.find(v => /^en/i.test(v.lang || "") && /US|GB|UK|English/i.test((v.lang || "") + " " + (v.name || ""))) ||
+               voices.find(v => /^en/i.test(v.lang || "")) ||
+               voices[0] ||
+               null;
+      }
       return voices.find(v => /^fr/i.test(v.lang || "") && /FR/i.test(v.lang || "")) ||
              voices.find(v => /^fr/i.test(v.lang || "")) ||
              voices[0] ||
@@ -951,7 +1137,7 @@
 
     function stopAudio(){
       if(canSpeak()) window.speechSynthesis.cancel();
-      if(play) play.textContent = "🎧 Écouter";
+      if(play) play.textContent = playLabel();
     }
 
     function speak(){
@@ -963,8 +1149,8 @@
 
       stopAudio();
 
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = "fr-FR";
+      const u = new SpeechSynthesisUtterance(currentText());
+      u.lang = currentLang() === "en" ? "en-US" : "fr-FR";
       u.rate = 0.88;
       u.pitch = 1;
       u.volume = 1;
@@ -972,7 +1158,7 @@
       const voice = pickVoice();
       if(voice) u.voice = voice;
 
-      u.onstart = function(){ if(play) play.textContent = "⏸️ Lecture en cours"; };
+      u.onstart = function(){ if(play) play.textContent = readingLabel(); };
       u.onend = stopAudio;
       u.onerror = stopAudio;
 
@@ -988,8 +1174,35 @@
     }
   })();
   </script>
+  <script>
+  // DIGIY NDIMBAL: liens internes du dépôt. Le mur d’annonces = index.html, publication = inscription.html.
+  (function(){
+    document.querySelectorAll('a[href="index.html"]').forEach(function(a){ a.setAttribute('href','index.html'); });
+    document.querySelectorAll('a[href="inscription.html"]').forEach(function(a){ a.setAttribute('href','inscription.html'); });
+  })();
+  </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
