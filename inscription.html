@@ -4,1280 +4,574 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#0b5d3b"/>
-  <meta name="robots" content="index,follow"/>
-  <meta name="digiy-version" content="ndimbal-express-index-annonces-france-senegal-supabase-ndimbal-annonces-20260629"/>
-  <!-- DIGIY LINK RULE: internal NDIMBAL links stay relative: ./index.html and ./inscription.html for GitHub Pages/CNAME reliability. -->
-  <meta name="digiy-links" content="absolute-ndimbal-express-20260620"/>
-  <title>NDIMBAL Annonces — France · Sénégal · Mur public des annonces validées</title>
-  <meta name="description" content="NDIMBAL Annonces France · Sénégal : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission."/>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+  <meta name="digiy-version" content="ndimbal-annonces-inscription-france-sendwave-wave-senegal-20260629"/>
+  <title>NDIMBAL Annonces — Inscription France · Sénégal · Sendwave vers Wave</title>
+  <meta name="description" content="NDIMBAL Annonces : choisir France ou Sénégal, préparer une annonce, afficher le bon tarif, régler par Wave au Sénégal ou par Sendwave depuis la France vers Wave Sénégal, envoyer la preuve, validation DIGIY avant affichage public."/>
 
   <style>
     :root{
-      --bg:#061b14;
-      --bg2:#0b5d3b;
-      --card:#0b2a1f;
-      --line:rgba(255,255,255,.14);
-      --text:#f8fafc;
-      --muted:rgba(248,250,252,.75);
-      --gold:#facc15;
-      --gold2:#f59e0b;
-      --green:#22c55e;
-      --green2:#16a34a;
-      --blue:#38bdf8;
-      --red:#ef4444;
-      --shadow:0 22px 58px rgba(0,0,0,.32);
-      --radius:26px;
+      --bg:#061b14;--bg2:#0b5d3b;--line:rgba(255,255,255,.14);--text:#f8fafc;
+      --muted:rgba(248,250,252,.76);--gold:#facc15;--gold2:#f59e0b;--green:#22c55e;
+      --red:#ef4444;--blue:#38bdf8;--shadow:0 22px 58px rgba(0,0,0,.30);
       --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     }
-
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0;
-      min-height:100vh;
-      color:var(--text);
-      font-family:var(--font);
+      margin:0;min-height:100vh;color:var(--text);font-family:var(--font);font-weight:850;
       background:
-        radial-gradient(900px 520px at 10% -10%,rgba(250,204,21,.15),transparent 60%),
+        radial-gradient(900px 520px at 10% -10%,rgba(250,204,21,.16),transparent 60%),
         radial-gradient(760px 440px at 100% 8%,rgba(34,197,94,.18),transparent 62%),
         linear-gradient(180deg,var(--bg2),var(--bg) 46%,#04140f 100%);
-      padding-bottom:86px;
-      font-weight:850;
     }
-
     a{color:inherit;text-decoration:none}
-    button,input,select{font:inherit}
-
-    .page{
-      width:min(1120px,100%);
-      margin:0 auto;
-      padding:14px;
+    button,input,textarea,select{font:inherit}
+    .page{width:min(820px,100%);margin:0 auto;padding:12px 12px 96px}
+    .top{
+      position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;justify-content:space-between;
+      padding:10px 0 12px;background:linear-gradient(180deg,rgba(11,93,59,.96),rgba(11,93,59,.76),transparent);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
     }
-
-    .topRail{
-      position:sticky;
-      top:0;
-      z-index:30;
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-      padding:10px 0 12px;
-      background:linear-gradient(180deg,rgba(11,93,59,.96),rgba(11,93,59,.76),transparent);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
+    .brand{display:flex;align-items:center;gap:9px;font-weight:1000;color:#bbf7d0}
+    .mark{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#fde68a,var(--gold),var(--green));color:#052e16;font-size:23px}
+    .top a{
+      min-height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(8,47,33,.72);
+      color:#fff;padding:0 13px;font-size:13px;font-weight:1000;display:inline-flex;align-items:center;justify-content:center;gap:7px;
     }
-
-    .railBtn{
-      min-height:46px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:7px;
-      padding:0 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(8,47,33,.72);
-      color:#fff;
-      font-size:13px;
-      font-weight:1000;
-      white-space:nowrap;
-      box-shadow:0 10px 24px rgba(0,0,0,.18);
-      touch-action:manipulation;
-      cursor:pointer;
+    .hero,.card{
+      border:1px solid rgba(255,255,255,.14);border-radius:26px;padding:16px;margin-bottom:12px;
+      background:linear-gradient(145deg,rgba(8,47,33,.96),rgba(9,34,25,.97));box-shadow:var(--shadow);position:relative;overflow:hidden;
     }
-
-    .railBtn.gold{
-      color:#072317;
-      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
-      border-color:rgba(255,255,255,.30);
+    .hero{border-color:rgba(250,204,21,.28);border-radius:30px;padding:18px}
+    .hero:before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--green),var(--gold),var(--blue))}
+    .kicker{color:#bbf7d0;font-size:11px;font-weight:1000;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:6px 0 0;font-size:clamp(34px,8vw,58px);line-height:.94;letter-spacing:-.06em;font-weight:1000;color:#fff}
+    .lead{margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.52;font-weight:900}
+    .rule{
+      margin-top:13px;border-radius:20px;border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.09);
+      padding:12px;color:#fff8db;font-size:13px;line-height:1.45;font-weight:950;
     }
-
-    .railBtn.active{
-      color:#fff8db;
-      border-color:rgba(250,204,21,.44);
-      background:rgba(250,204,21,.13);
+    .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+    .step{
+      border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);border-radius:20px;padding:12px;
+      min-height:96px;display:flex;flex-direction:column;gap:6px;
     }
-
-    .hero{
-      border:1px solid rgba(250,204,21,.26);
-      border-radius:30px;
-      background:
-        radial-gradient(620px 260px at 8% 0%,rgba(250,204,21,.14),transparent 62%),
-        radial-gradient(560px 260px at 100% 0%,rgba(34,197,94,.13),transparent 62%),
-        linear-gradient(145deg,rgba(8,47,33,.96),rgba(9,34,25,.97));
-      box-shadow:var(--shadow);
-      padding:20px;
-      overflow:hidden;
-      position:relative;
+    .step b{font-size:15px;color:#fff8db;font-weight:1000}
+    .step span{color:var(--muted);font-size:12px;line-height:1.35;font-weight:900}
+    .cardTitle{font-size:21px;font-weight:1000;color:#fff8db;margin-bottom:10px;letter-spacing:-.025em}
+    label{display:block;margin:12px 0 6px;color:#d9f99d;font-size:13px;font-weight:1000}
+    input,textarea,select{
+      width:100%;min-height:50px;border-radius:15px;border:1px solid rgba(255,255,255,.14);background:#052e16;
+      color:var(--text);padding:12px;font-size:15px;font-weight:900;outline:none;
     }
-
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:0 0 auto 0;
-      height:5px;
-      background:linear-gradient(90deg,var(--green),var(--gold),var(--blue));
+    textarea{min-height:108px;resize:vertical;line-height:1.46}
+    input::placeholder,textarea::placeholder{color:rgba(248,250,252,.48)}
+    input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.12)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .summary,.waveBox{
+      margin-top:12px;border-radius:22px;border:1px solid rgba(250,204,21,.30);
+      background:rgba(250,204,21,.08);padding:13px;display:grid;gap:9px;
     }
-
-    .heroTop{
-      display:grid;
-      grid-template-columns:auto 1fr;
-      gap:14px;
-      align-items:start;
+    .line{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.10);padding-bottom:8px;color:var(--muted);font-size:13px;font-weight:950}
+    .line:last-child{border-bottom:0;padding-bottom:0}
+    .line b{color:#fff8db;text-align:right}
+    .amount{font-size:26px;font-weight:1000;color:#fff8db}
+    .waveBox{border-color:rgba(34,197,94,.34);background:rgba(34,197,94,.10)}
+    .waveHead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+    .waveHead strong{font-size:20px;color:#fff8db;font-weight:1000}
+    .waveHead span{display:block;margin-top:4px;color:var(--muted);font-size:12px;line-height:1.4;font-weight:900}
+    .official{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .official div{border:1px solid rgba(255,255,255,.14);border-radius:17px;background:rgba(0,0,0,.14);padding:11px}
+    .official small{display:block;color:var(--muted);font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.05em}
+    .official b{display:block;margin-top:4px;color:#bbf7d0;font-size:15px;font-weight:1000}
+    .actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+    .btn{
+      min-height:54px;border-radius:17px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.075);
+      color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 10px;font-size:13px;font-weight:1000;cursor:pointer;
     }
-
-    .mark{
-      width:62px;
-      height:62px;
-      border-radius:22px;
-      display:grid;
-      place-items:center;
-      font-size:32px;
-      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
-      color:#052e16;
-      box-shadow:0 14px 32px rgba(0,0,0,.26);
-      border:1px solid rgba(255,255,255,.28);
-      flex:0 0 auto;
+    .btn.main{background:linear-gradient(135deg,#fde68a,var(--gold),var(--green));color:#052e16;border-color:rgba(255,255,255,.30)}
+    .btn.whats{background:rgba(34,197,94,.16);border-color:rgba(34,197,94,.36);color:#dfffe9}
+    .btn.sms{background:rgba(250,204,21,.12);border-color:rgba(250,204,21,.32);color:#fff8db}
+    .preview{
+      display:none;white-space:pre-wrap;margin-top:12px;border-radius:18px;border:1px solid rgba(250,204,21,.34);
+      background:rgba(250,204,21,.10);padding:12px;color:#fff8db;font-size:13px;line-height:1.5;font-weight:900;
     }
-
-    .kicker{
-      color:#bbf7d0;
-      font-size:11px;
-      font-weight:1000;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-
-    h1{
-      margin:4px 0 0;
-      font-size:clamp(36px,7vw,68px);
-      line-height:.94;
-      letter-spacing:-.06em;
-      font-weight:1000;
-      color:#fff;
-    }
-
-    .lead{
-      margin-top:12px;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.56;
-      font-weight:850;
-      max-width:840px;
-    }
-
-    .doctrine{
-      margin-top:14px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .doctrine span{
-      display:inline-flex;
-      min-height:34px;
-      align-items:center;
-      padding:0 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.07);
-      color:#fff8db;
-      font-size:12px;
-      font-weight:1000;
-    }
-
-    .doctrine span:first-child{
-      color:#052e16;
-      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
-      border-color:rgba(255,255,255,.28);
-    }
-
-    .audioBox{
-      margin-top:16px;
-      display:grid;
-      gap:10px;
-      padding:14px;
-      border-radius:22px;
-      border:1px solid rgba(250,204,21,.28);
-      background:rgba(250,204,21,.075);
-    }
-
-    .audioTitle{
-      color:#fff8db;
-      font-weight:1000;
-      font-size:15px;
-    }
-
-    .audioText{
-      color:var(--muted);
-      line-height:1.45;
-      font-size:13px;
-      font-weight:850;
-    }
-
-    .audioActions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .audioBtn{
-      min-height:44px;
-      border-radius:999px;
-      border:1px solid rgba(250,204,21,.40);
-      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
-      color:#052e16;
-      padding:0 15px;
-      font-size:13px;
-      font-weight:1000;
-      cursor:pointer;
-    }
-
-    .audioBtn.stop{
-      background:rgba(251,113,133,.12);
-      border-color:rgba(251,113,133,.36);
-      color:#ffe4e6;
-    }
-
-    .filters{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-      align-items:center;
-    }
-
-    .search{
-      min-height:52px;
-      width:100%;
-      padding:0 14px;
-      border-radius:17px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.16);
-      color:#fff;
-      outline:none;
-      font-weight:900;
-    }
-
-    .search::placeholder{color:rgba(248,250,252,.62)}
-    .search:focus{border-color:rgba(250,204,21,.48);box-shadow:0 0 0 3px rgba(250,204,21,.10)}
-
-    .quickBtns{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .quickBtn{
-      min-height:52px;
-      border-radius:17px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.07);
-      color:#fff;
-      padding:0 13px;
-      font-size:13px;
-      font-weight:1000;
-      white-space:nowrap;
-      cursor:pointer;
-    }
-
-    .quickBtn.gold{
-      color:#052e16;
-      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
-      border-color:rgba(255,255,255,.28);
-    }
-
-    .quickBtn.active{
-      color:#052e16;
-      background:linear-gradient(135deg,#bbf7d0,#22c55e);
-      border-color:rgba(255,255,255,.28);
-    }
-
-    .sectionHead{
-      margin:18px 2px 10px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:end;
-      flex-wrap:wrap;
-    }
-
-    .sectionTitle{
-      font-size:24px;
-      font-weight:1000;
-      letter-spacing:-.035em;
-    }
-
-    .sectionSub{
-      margin-top:4px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:850;
-    }
-
-    .countPill{
-      min-height:34px;
-      border-radius:999px;
-      padding:0 12px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border:1px solid rgba(250,204,21,.28);
-      background:rgba(250,204,21,.09);
-      color:#fff8db;
-      font-size:12px;
-      font-weight:1000;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .annonceCard{
-      min-height:190px;
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.13);
-      background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.045));
-      padding:16px;
-      box-shadow:0 14px 30px rgba(0,0,0,.20);
-      display:grid;
-      gap:10px;
-    }
-
-    .cardTop{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:space-between;
-    }
-
-    .annonceIcon{
-      width:52px;
-      height:52px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
-      background:linear-gradient(135deg,rgba(250,204,21,.22),rgba(34,197,94,.16));
-      border:1px solid rgba(250,204,21,.24);
-      font-size:26px;
-    }
-
-    .annonceTitle{
-      margin:0;
-      color:#fff;
-      font-size:19px;
-      line-height:1.12;
-      font-weight:1000;
-      letter-spacing:-.025em;
-    }
-
-    .meta{
-      display:flex;
-      gap:7px;
-      flex-wrap:wrap;
-    }
-
-    .tag{
-      width:max-content;
-      max-width:100%;
-      display:inline-flex;
-      min-height:28px;
-      align-items:center;
-      padding:0 9px;
-      border-radius:999px;
-      border:1px solid rgba(250,204,21,.26);
-      background:rgba(250,204,21,.08);
-      color:#fff8db;
-      font-size:11px;
-      font-weight:1000;
-    }
-
-    .tag.green{
-      border-color:rgba(34,197,94,.34);
-      background:rgba(34,197,94,.11);
-      color:#bbf7d0;
-    }
-
-    .details{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.48;
-      font-weight:850;
-      white-space:pre-wrap;
-      overflow-wrap:anywhere;
-    }
-
-    .contactRow{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:8px;
-      margin-top:4px;
-    }
-
-    .contactBtn{
-      min-height:46px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.07);
-      color:#fff;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:7px;
-      padding:0 11px;
-      font-size:13px;
-      font-weight:1000;
-      text-align:center;
-    }
-
-    .contactBtn.whatsapp{
-      background:linear-gradient(135deg,#bbf7d0,#22c55e);
-      color:#052e16;
-      border-color:rgba(255,255,255,.28);
-    }
-
-    .empty{
-      grid-column:1/-1;
-      border-radius:24px;
-      border:1px dashed rgba(250,204,21,.34);
-      background:rgba(250,204,21,.075);
-      padding:18px;
-      color:#fff8db;
-      font-weight:950;
-      line-height:1.5;
-      text-align:center;
-    }
-
-    .note{
-      margin-top:16px;
-      border-radius:20px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.14);
-      padding:14px;
-      color:rgba(248,250,252,.82);
-      line-height:1.55;
-      font-size:13px;
-      font-weight:850;
-    }
-
-    .footer{
-      margin-top:14px;
-      text-align:center;
-      color:#bbf7d0;
-      font-size:12px;
-      font-weight:1000;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      opacity:.88;
-    }
-
-
-    .examplesBlock{
-      margin-top:14px;
-      border:1px solid rgba(250,204,21,.24);
-      border-radius:26px;
-      background:
-        radial-gradient(420px 180px at 0% 0%,rgba(250,204,21,.13),transparent 65%),
-        linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
-      padding:14px;
-      box-shadow:0 14px 30px rgba(0,0,0,.18);
-    }
-    .examplesTitle{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .examplesTitle strong{
-      color:#fff8db;
-      font-size:22px;
-      font-weight:1000;
-      letter-spacing:-.035em;
-    }
-    .examplesTitle span{
-      color:var(--muted);
-      font-size:12px;
-      font-weight:900;
-      line-height:1.35;
-    }
-    .examplesGrid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:9px;
-    }
-    .exampleCard{
-      border-radius:20px;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(0,0,0,.13);
-      padding:12px;
-      min-height:148px;
-      display:grid;
-      gap:7px;
-    }
-    .exampleIcon{font-size:27px}
-    .exampleCard b{
-      color:#fff;
-      font-size:15px;
-      line-height:1.15;
-      font-weight:1000;
-    }
-    .exampleCard small{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.35;
-      font-weight:850;
-    }
-    .examplePrice{
-      width:max-content;
-      max-width:100%;
-      border-radius:999px;
-      border:1px solid rgba(34,197,94,.34);
-      background:rgba(34,197,94,.12);
-      color:#bbf7d0;
-      padding:6px 9px;
-      font-size:11px;
-      font-weight:1000;
-    }
-    @media(max-width:900px){
-      .examplesGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    }
-    @media(max-width:520px){
-      .examplesGrid{grid-template-columns:1fr}
-    }
-
-
-    /* ===== DIGIY LANG SWITCH — FR maître / EN bouton ===== */
-    .digiyLangSwitch{
-      display:inline-flex;
-      align-items:center;
-      gap:5px;
-      min-height:46px;
-      padding:4px;
-      border-radius:999px;
-      border:1px solid rgba(250,204,21,.28);
-      background:rgba(8,47,33,.72);
-      box-shadow:0 10px 24px rgba(0,0,0,.18);
-    }
-    .digiyLangSwitch button{
-      min-height:36px;
-      min-width:44px;
-      border:0;
-      border-radius:999px;
-      background:transparent;
-      color:#fff8db;
-      padding:0 12px;
-      font-size:12px;
-      font-weight:1000;
-      cursor:pointer;
-      touch-action:manipulation;
-    }
-    .digiyLangSwitch button.active{
-      color:#052e16;
-      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
-      box-shadow:0 8px 18px rgba(0,0,0,.14);
-    }
-
-    .hidden{display:none!important}
-
-    @media(max-width:760px){
-      body{padding-bottom:96px}
-      .page{padding:10px}
-      .topRail{gap:7px;padding:8px 0 10px}
-      .railBtn{flex:1 1 calc(50% - 8px);min-height:48px;padding:0 10px;font-size:12px}
-      .hero{padding:16px;border-radius:24px}
-      .heroTop{grid-template-columns:1fr}
-      .mark{width:58px;height:58px}
-      .filters{grid-template-columns:1fr}
-      .quickBtns{justify-content:stretch}
-      .quickBtn{flex:1 1 130px}
-      .grid{grid-template-columns:1fr}
-      .contactRow{grid-template-columns:1fr}
-      .annonceTitle{font-size:20px}
-      .audioBtn{flex:1 1 150px}
-    }
+    .preview.show{display:block}
+    .status{margin-top:10px;border-radius:17px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);padding:11px;color:var(--muted);font-size:13px;line-height:1.45;font-weight:900}
+    .status.ok{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.34);color:#bbf7d0}
+    .status.err{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.34);color:#fecaca}
+    .footer{text-align:center;color:#bbf7d0;font-size:12px;font-weight:1000;letter-spacing:.08em;text-transform:uppercase;margin:18px 0}
+    @media(max-width:720px){.steps,.grid2,.official,.actions{grid-template-columns:1fr}.hero{padding:16px;border-radius:26px}}
   </style>
 </head>
 
 <body>
   <main class="page">
-    <nav class="topRail" aria-label="Navigation NDIMBAL Annonces">
-      <!-- DIGIY: le mur public est la racine/index.html du dépôt. Aucun fichier mur-annonces.html. -->
-      <a class="railBtn" href="https://digiylyfe.com/" rel="noopener">🌍 Site</a>
-      <a class="railBtn" href="https://digiy-hub.digiylyfe.com/" rel="noopener">🧭 HUB</a>
-      <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
-      <a class="railBtn" href="inscription.html?pays=france">🇫🇷 Publier France</a>
-      <a class="railBtn" href="inscription.html?pays=senegal">🇸🇳 Publier Sénégal</a>
-      <div class="digiyLangSwitch" aria-label="Choisir la langue">
-        <button id="digiyLangFr" type="button" class="active">FR</button>
-        <button id="digiyLangEn" type="button">EN</button>
-      </div>
+    <nav class="top" aria-label="Navigation inscription NDIMBAL">
+      <a class="brand" href="./index.html"><span class="mark">📣</span><span>NDIMBAL Annonces</span></a>
+      <a href="./index.html">← Mur annonces</a>
     </nav>
 
-    <section class="hero" aria-label="NDIMBAL Annonces public">
-      <div class="heroTop">
-        <div class="mark" aria-hidden="true">⚡</div>
+    <section class="hero">
+      <div class="kicker">Inscription · annonce · France/Sénégal · validation DIGIY</div>
+      <h1>Publier une annonce terrain.</h1>
+      <p class="lead">
+        Choisis le pays, la durée, écris ton annonce — voiture, terrain, maison, vélo, studio, service — indique le prix demandé, puis envoie la preuve.
+        Depuis la France, le règlement se fait par Sendwave vers le Wave Sénégal officiel de DIGIY.
+      </p>
+      <div class="rule">
+        Voir les annonces est gratuit. Publier passe par un ticket durée.
+        Sénégal : paiement Wave direct en FCFA. France : paiement par Sendwave en euros vers le Wave Sénégal officiel : JB BEAUVILLE · +221 77 134 28 89.
+        DIGIY ne prend pas de commission sur les affaires entre personnes.
+      </div>
+      <div class="steps">
+        <div class="step"><b>1 · Pays</b><span>Tu choisis Sénégal ou France pour afficher le bon tarif.</span></div>
+        <div class="step"><b>2 · Durée</b><span>Sénégal en FCFA, France en euros : 15 €, 25 € ou 40 €.</span></div>
+        <div class="step"><b>3 · Régler</b><span>France : Sendwave → Wave Sénégal. Puis preuve à envoyer.</span></div>
+      </div>
+    </section>
+
+    <form class="card" id="form">
+      <div class="cardTitle">📋 Ton annonce</div>
+
+      <label for="country">Pays de publication *</label>
+      <select id="country">
+        <option value="senegal">🇸🇳 Sénégal · FCFA</option>
+        <option value="france">🇫🇷 France · EUR</option>
+      </select>
+
+      <label for="duration">Durée de publication *</label>
+      <select id="duration">
+        <option value="Semaine" data-key="week" data-days="7" data-amount-senegal="5000" data-amount-france="15" data-france-fcfa="7000">1 semaine · 5 000 FCFA</option>
+        <option value="Quinzaine" data-key="quinzaine" data-days="15" data-amount-senegal="10000" data-amount-france="25" data-france-fcfa="10000">15 jours · 10 000 FCFA</option>
+        <option value="Mois" data-key="month" data-days="30" data-amount-senegal="20000" data-amount-france="40" data-france-fcfa="20000">1 mois · 20 000 FCFA</option>
+      </select>
+      <div class="rule" id="priceRule" style="margin-top:10px">
+        🇸🇳 Sénégal : 5 000 / 10 000 / 20 000 FCFA · 🇫🇷 France : 15 € / 25 € / 40 € via Sendwave vers Wave Sénégal.
+      </div>
+
+      <label for="category">Catégorie *</label>
+      <select id="category">
+        <option value="Annonce courte">📣 Annonce courte</option>
+        <option value="Location studio / appartement">🏠 Location studio / appartement</option>
+        <option value="Maison / terrain">🏡 Vente maison / terrain</option>
+        <option value="Voiture">🚗 Vente voiture</option>
+        <option value="Vélo">🚲 Vente vélo</option>
+        <option value="Vente objet / produit">🛍️ Vente objet / produit</option>
+        <option value="Service / aide">🤝 Service / aide</option>
+        <option value="Recherche">🔎 Recherche</option>
+        <option value="Autre annonce terrain">📣 Autre annonce terrain</option>
+      </select>
+
+      <label for="title">Titre annonce *</label>
+      <input id="title" maxlength="100" autocomplete="off" placeholder="Ex : Vente voiture · Terrain à vendre · Maison à vendre · Vélo à vendre"/>
+      <div class="grid2">
         <div>
-          <div class="kicker">Petites annonces France · Sénégal · contact direct · 0% commission</div>
-          <h1>NDIMBAL Annonces<br><span style="color:var(--gold)">France · Sénégal</span></h1>
-          <p class="lead">
-            Découvre les annonces validées du terrain en France et au Sénégal : location studio, appartement, vente terrain, vente maison,
-            voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente.
-            Chaque annonce indique son pays, sa zone, sa devise et son contact direct. DIGIYLYFE ne prend pas de commission.
-          </p>
-          <div class="doctrine" aria-label="Doctrine NDIMBAL Annonces">
-            <span>Voir gratuit</span>
-            <span>Publier avec ticket</span>
-            <span>Annonces validées</span>
-            <span>Contact direct</span>
-            <span>0% commission</span>
-            <span>Le terrain garde la main</span>
-            <span>France · Sénégal</span>
-            <span>FCFA · EUR</span>
-          </div>
-          <div class="doctrine" aria-label="Tarifs NDIMBAL Annonces">
-            <span>Sénégal · 1 semaine · 5 000 FCFA</span>
-            <span>Sénégal · 15 jours · 10 000 FCFA</span>
-            <span>Sénégal · 1 mois · 20 000 FCFA</span>
-            <span>France · ticket EUR à confirmer</span>
-          </div>
-          <div class="doctrine" aria-label="Action NDIMBAL Annonces">
-            <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
-            <span>Voir gratuit</span>
-            <span>Validation DIGIY avant affichage</span>
-          </div>
-          <div class="doctrine" aria-label="Exemples NDIMBAL Annonces">
-            <span>🚗 Vente voiture</span>
-            <span>🌍 Vente terrain</span>
-            <span>🏡 Vente maison</span>
-            <span>🚲 Vente vélo</span>
-          </div>
+          <label for="price">Prix demandé</label>
+          <input id="price" inputmode="numeric" maxlength="60" autocomplete="off" placeholder="Ex : 3 500 000 FCFA · 45 000 FCFA · Prix à discuter"/>
         </div>
-      </div>
-
-      <div class="audioBox">
-        <div class="audioTitle">🎧 Comprendre NDIMBAL Annonces</div>
-        <div class="audioText">
-          Une courte voix explique comment lire une annonce, contacter directement et publier avec ticket durée sans commission DIGIY.
-        </div>
-        <div class="audioActions">
-          <button class="audioBtn" id="audioPlay" type="button">🎧 Écouter</button>
-          <button class="audioBtn stop" id="audioStop" type="button">⏹ Stop</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="examplesBlock" id="territoires" aria-label="NDIMBAL France Sénégal">
-      <div class="examplesTitle">
         <div>
-          <strong>Deux terrains, un mur propre</strong><br>
-          <span>Les annonces de France et du Sénégal restent séparées par pays, zone, devise et contact.</span>
+          <label for="priceNote">Précision prix</label>
+          <input id="priceNote" maxlength="80" autocomplete="off" placeholder="Ex : négociable, ferme, avance, location/mois"/>
         </div>
       </div>
-      <div class="examplesGrid">
-        <article class="exampleCard">
-          <div class="exampleIcon">🇸🇳</div>
-          <b>Sénégal</b>
-          <small>Saly, Mbour, Dakar, Thiès, AIBD, Petite Côte. Prix en FCFA et contact +221.</small>
-          <div class="examplePrice">FCFA · WhatsApp direct</div>
-        </article>
-        <article class="exampleCard">
-          <div class="exampleIcon">🇫🇷</div>
-          <b>France</b>
-          <small>Sarlat, Arcachon, Bordeaux, Paris et diaspora. Prix en EUR et contact +33.</small>
-          <div class="examplePrice">EUR · WhatsApp direct</div>
-        </article>
-        <article class="exampleCard">
-          <div class="exampleIcon">🌍</div>
-          <b>Diaspora</b>
-          <small>Famille, retours pays, objets, services, logements et opportunités entre deux territoires.</small>
-          <div class="examplePrice">France ↔ Sénégal</div>
-        </article>
-        <article class="exampleCard">
-          <div class="exampleIcon">🔒</div>
-          <b>Validation DIGIY</b>
-          <small>Pas d’annonce sauvage : pays, prix, téléphone et contenu contrôlés avant affichage public.</small>
-          <div class="examplePrice">Mur propre</div>
-        </article>
-      </div>
-    </section>
 
-    <section class="examplesBlock" aria-label="Exemples annonces terrain">
-      <div class="examplesTitle">
+
+      <div class="grid2">
         <div>
-          <strong>Exemples terrain</strong><br>
-          <span>Le prix demandé est affiché avec la devise du pays pour éviter les appels inutiles.</span>
+          <label for="zone">Zone / ville *</label>
+          <input id="zone" maxlength="80" autocomplete="off" placeholder="Ex : Saly, Mbour, Dakar · Sarlat, Arcachon, Bordeaux, Paris"/>
         </div>
-        <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
+        <div>
+          <label for="contact">Contact annonce *</label>
+          <input id="contact" inputmode="tel" autocomplete="off" placeholder="WhatsApp ou téléphone de l’annonce"/>
+        </div>
       </div>
 
-      <div class="examplesGrid">
-        <article class="exampleCard">
-          <div class="exampleIcon">🌍</div>
-          <b>Terrain à vendre</b>
-          <small>Zone, surface, papiers, accès, quartier.</small>
-          <div class="examplePrice">Prix demandé : 8 500 000 FCFA</div>
-        </article>
+      <label for="details">Détails annonce</label>
+      <textarea id="details" maxlength="700" placeholder="Conditions, description, disponibilité, quartier, état, surface, documents, rendez-vous. Le prix demandé est déjà dans le champ prix."></textarea>
 
-        <article class="exampleCard">
-          <div class="exampleIcon">🏡</div>
-          <b>Maison à vendre</b>
-          <small>Nombre de pièces, quartier, état, visite.</small>
-          <div class="examplePrice">Prix demandé : 32 000 000 FCFA</div>
-        </article>
+      <section class="summary" aria-label="Résumé">
+        <div class="cardTitle" style="margin:0">Résumé</div>
+        <div class="line"><span>Module</span><b>NDIMBAL ANNONCES</b></div>
+        <div class="line"><span>Pays</span><b id="countryLabel">Sénégal · FCFA</b></div>
+        <div class="line"><span>Choix</span><b id="choiceLabel">1 semaine · 5 000 FCFA</b></div>
+        <div class="line"><span>Montant</span><b id="amountLabel">5 000 FCFA</b></div>
+        <div class="line"><span>Équivalence France</span><b id="franceEquivLabel">—</b></div>
+        <div class="line"><span>Total</span><b id="totalLabel">5 000 FCFA</b></div>
+      </section>
 
-        <article class="exampleCard">
-          <div class="exampleIcon">🚗</div>
-          <b>Voiture à vendre</b>
-          <small>Marque, année, état, papiers, visite.</small>
-          <div class="examplePrice">Prix demandé : 3 800 000 FCFA</div>
-        </article>
+      <section class="waveBox" aria-label="Paiement Wave officiel">
+        <div class="waveHead">
+          <div>
+            <strong id="paymentTitle">💳 Paiement Wave officiel Sénégal</strong>
+            <span id="paymentInstruction">À régler avant validation. Après paiement, envoie la preuve par WhatsApp ou SMS.</span>
+          </div>
+          <b class="amount" id="paymentAmount">5 000 FCFA</b>
+        </div>
 
-        <article class="exampleCard">
-          <div class="exampleIcon">🚲</div>
-          <b>Vélo à vendre</b>
-          <small>État, taille, quartier, disponibilité.</small>
-          <div class="examplePrice">Prix demandé : 45 000 FCFA</div>
-        </article>
+        <div class="official">
+          <div><small>Bénéficiaire</small><b>JB BEAUVILLE</b></div>
+          <div><small>Téléphone Wave Sénégal</small><b>+221 77 134 28 89</b></div>
+          <div><small>Canal France</small><b id="officialMethod">Sendwave → Wave Sénégal</b></div>
+          <div><small>Validation</small><b>Preuve WhatsApp / SMS</b></div>
+        </div>
+
+        <div class="rule" id="sendwaveBox" style="margin-top:0">
+          🇫🇷 Depuis la France : télécharge ou ouvre Sendwave, choisis Sénégal, envoie le montant en euros vers le Wave Sénégal de JB BEAUVILLE au +221 77 134 28 89, puis envoie la preuve à DIGIY.
+        </div>
+        <div class="actions" id="sendwaveActions" style="margin-top:0">
+          <a class="btn main" id="sendwaveBtn" href="https://www.sendwave.com/" target="_blank" rel="noopener">📲 Ouvrir / télécharger Sendwave</a>
+          <a class="btn whats" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20souhaite%20envoyer%20ma%20preuve%20Sendwave%20pour%20NDIMBAL%20Annonces." target="_blank" rel="noopener">📩 Envoyer preuve</a>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <label for="payerName">Ton nom</label>
+            <input id="payerName" autocomplete="off" placeholder="Ex : Mamadou Diop"/>
+          </div>
+          <div>
+            <label for="payerPhone">Téléphone</label>
+            <input id="payerPhone" inputmode="tel" autocomplete="off" placeholder="Ex : +221 77 000 00 00 · +33 6 00 00 00 00"/>
+          </div>
+        </div>
+
+        <label for="payNote">Note pour identifier le paiement</label>
+        <textarea id="payNote" maxlength="500" placeholder="La note se prépare automatiquement après ton choix."></textarea>
+      </section>
+
+      <div class="actions">
+        <a class="btn whats" id="waBtn" href="https://wa.me/221771342889" target="_blank" rel="noopener">📲 WhatsApp</a>
+        <a class="btn sms" id="smsBtn" href="sms:+221771342889">💬 SMS</a>
+        <button class="btn" id="clearBtn" type="button">Effacer</button>
+        <button class="btn main" id="copyBtn" type="button">Copier</button>
       </div>
-    </section>
 
-    <section class="filters" aria-label="Recherche annonces">
-      <input id="search" class="search" type="search" placeholder="Rechercher : France, Sénégal, vente voiture, terrain, maison, vélo, studio, service, Dakar, Saly, Sarlat…" autocomplete="off"/>
-      <div class="quickBtns">
-        <button class="quickBtn active" type="button" data-zone="">Tout</button>
-        <button class="quickBtn" type="button" data-zone="Sénégal">🇸🇳 Sénégal</button>
-        <button class="quickBtn" type="button" data-zone="France">🇫🇷 France</button>
-        <button class="quickBtn" type="button" data-zone="Saly">Saly</button>
-        <button class="quickBtn" type="button" data-zone="Dakar">Dakar</button>
-        <button class="quickBtn" type="button" data-zone="Mbour">Mbour</button>
-        <button class="quickBtn" type="button" data-zone="Sarlat">Sarlat</button>
-        <button class="quickBtn" type="button" data-zone="Arcachon">Arcachon</button>
-        <button class="quickBtn" type="button" data-zone="Bordeaux">Bordeaux</button>
-        <button class="quickBtn" type="button" data-zone="Paris">Paris</button>
-        <button class="quickBtn gold" id="refreshBtn" type="button">🔄 Recharger</button>
-      </div>
-    </section>
+      <div class="preview" id="preview"></div>
+      <div class="status" id="status">Choisis ta durée, écris ton annonce, puis envoie la preuve Wave ou Sendwave.</div>
+    </form>
 
-    <div class="sectionHead">
-      <div>
-        <div class="sectionTitle">Annonces disponibles</div>
-        <div class="sectionSub">Seules les annonces validées doivent apparaître ici, avec pays et zone clairement lisibles.</div>
-      </div>
-      <div class="countPill" id="countPill">Chargement…</div>
-    </div>
-
-    <section class="grid" id="annoncesGrid" aria-live="polite">
-      <div class="empty">Chargement des annonces NDIMBAL…</div>
-    </section>
-
-    <div class="note">
-      <b>Règle DIGIY :</b> cette page est publique.
-      Voir les annonces est gratuit. Pour publier en France ou au Sénégal, il faut passer par l’inscription, choisir le pays, une durée, régler le ticket, puis attendre la validation DIGIY.
-      Les conditions, le prix, le lieu précis et le paiement de l’annonce se discutent directement entre les personnes.
-      DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.
-    </div>
-
-    <div class="footer">DIGIYLYFE ♾️ · NDIMBAL ANNONCES · FRANCE · SÉNÉGAL · DIRECT AU PEUPLE</div>
+    <div class="footer">DIGIYLYFE · NDIMBAL ANNONCES · FRANCE/SÉNÉGAL · SENDWAVE → WAVE SÉNÉGAL · 0% COMMISSION</div>
   </main>
 
   <script>
   (function(){
     "use strict";
 
-    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-    const PUBLIC_RPC = "ndimbal_public_annonces";
+    const ADMIN_WAVE_PHONE = "221771342889";
+    const ADMIN_WAVE_DISPLAY = "+221 77 134 28 89";
 
-    const SB = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    const $ = id => document.getElementById(id);
+    const country = $("country");
+    const duration = $("duration");
 
-    const grid = document.getElementById("annoncesGrid");
-    const search = document.getElementById("search");
-    const countPill = document.getElementById("countPill");
+    const fields = {
+      category:$("category"),
+      title:$("title"),
+      price:$("price"),
+      priceNote:$("priceNote"),
+      zone:$("zone"),
+      contact:$("contact"),
+      details:$("details"),
+      payerName:$("payerName"),
+      payerPhone:$("payerPhone"),
+      payNote:$("payNote")
+    };
 
-    let allAnnonces = [];
-    let activeZone = "";
-    let LANG = "fr";
-    window.DIGIY_NDIMBAL_LANG = "fr";
-
-    const I18N = {
-      fr:{
-        docTitle:"NDIMBAL Annonces — France · Sénégal · Mur public des annonces validées",
-        docDesc:"NDIMBAL Annonces France · Sénégal : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission.",
-        nav:["🌍 Site","🧭 HUB","🎫 Publier une annonce","🇫🇷 Publier France","🇸🇳 Publier Sénégal"],
-        kicker:"Petites annonces France · Sénégal · contact direct · 0% commission",
-        h1:"NDIMBAL Annonces France · Sénégal",
-        lead:"Découvre les annonces validées du terrain en France et au Sénégal : location studio, appartement, vente terrain, vente maison, voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente. Chaque annonce indique son pays, sa zone, sa devise et son contact direct. DIGIYLYFE ne prend pas de commission.",
-        doctrine1:["Voir gratuit","Publier avec ticket","Annonces validées","Contact direct","0% commission","Le terrain garde la main","France · Sénégal","FCFA · EUR"],
-        doctrine2:["Sénégal · 1 semaine · 5 000 FCFA","Sénégal · 15 jours · 10 000 FCFA","Sénégal · 1 mois · 20 000 FCFA","France · ticket EUR à confirmer"],
-        doctrine3:["Voir gratuit","Validation DIGIY avant affichage"],
-        doctrine4:["🚗 Vente voiture","🌍 Vente terrain","🏡 Vente maison","🚲 Vente vélo"],
-        publish:"🎫 Publier une annonce",
-        audioTitle:"🎧 Comprendre NDIMBAL Annonces",
-        audioText:"Une courte voix explique comment lire une annonce, contacter directement et publier avec ticket durée sans commission DIGIY.",
-        audioPlay:"🎧 Écouter", audioReading:"⏸️ Lecture en cours",
-        examplesTitle:"Exemples terrain",
-        examplesSub:"Le prix demandé est affiché avec la devise du pays pour éviter les appels inutiles.",
-        examples:[["Terrain à vendre","Zone, surface, papiers, accès, quartier.","Prix demandé : 8 500 000 FCFA"],["Maison à vendre","Nombre de pièces, quartier, état, visite.","Prix demandé : 32 000 000 FCFA"],["Voiture à vendre","Marque, année, état, papiers, visite.","Prix demandé : 3 800 000 FCFA"],["Vélo à vendre","État, taille, quartier, disponibilité.","Prix demandé : 45 000 FCFA"]],
-        searchPlaceholder:"Rechercher : France, Sénégal, vente voiture, terrain, maison, vélo, studio, service, Dakar, Saly, Sarlat…",
-        quick:["Tout","🇸🇳 Sénégal","🇫🇷 France","Saly","Dakar","Mbour","Sarlat","Arcachon","Bordeaux","Paris","🔄 Recharger"],
-        sectionTitle:"Annonces disponibles",
-        sectionSub:"Seules les annonces validées doivent apparaître ici, avec pays et zone clairement lisibles.",
-        count:function(n){ return n + " annonce" + (n > 1 ? "s" : ""); },
-        loading:"Chargement…", error:"Erreur",
-        loadingGrid:"Chargement des annonces NDIMBAL…",
-        emptyHtml:'Aucune annonce validée pour le moment.<br>Reviens plus tard ou publie une annonce via la page d’inscription.<br><br><a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>',
-        noSupabase:"Supabase indisponible sur ce navigateur.",
-        loadError:function(rpc){ return 'Impossible de charger les annonces publiques.<br>Vérifie la fonction publique <b>'+esc(rpc)+'</b>, les statuts publiés et les droits EXECUTE.'; },
-        zoneUnknown:"Zone à préciser", durationUnknown:"Durée à préciser", detailsUnknown:"Détails à confirmer avec la personne.", pricePrefix:"💰 Prix demandé :", priceUnknown:"💰 Prix à préciser", contactUnknown:"📞 Contact à préciser",
-        whatsapp:"💬 WhatsApp", sms:"✉️ SMS",
-        note:'<b>Règle DIGIY :</b> cette page est publique. Voir les annonces est gratuit. Pour publier en France ou au Sénégal, il faut passer par l’inscription, choisir le pays, une durée, régler le ticket, puis attendre la validation DIGIY. Les conditions, le prix, le lieu précis et le paiement de l’annonce se discutent directement entre les personnes. DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.',
-        footer:"DIGIYLYFE ♾️ · NDIMBAL ANNONCES · FRANCE · SÉNÉGAL · DIRECT TO THE PEOPLE",
-        waMsg:function(title){return "Bonjour, je viens de voir l’annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";},
-        smsMsg:function(title){return "Bonjour, annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";}
+    const PRICE_TEXT = {
+      senegal:{
+        label:"🇸🇳 Sénégal · FCFA",
+        currency:"FCFA",
+        paymentTitle:"💳 Paiement Wave officiel Sénégal",
+        paymentInstruction:"À régler avant validation. Après paiement Wave, envoie la preuve par WhatsApp ou SMS.",
+        statusOk:"✅ Annonce Sénégal prête. Envoie la preuve Wave pour validation DIGIY.",
+        footerNote:"Paiement Wave officiel Sénégal"
       },
-      en:{
-        docTitle:"NDIMBAL Ads — France · Senegal · Public wall of approved ads",
-        docDesc:"NDIMBAL Ads France · Senegal: public wall of approved local ads — rentals, sales, land, houses, cars, services and short ads. Free to view, paid duration ticket to publish, direct contact, 0% commission.",
-        nav:["🌍 Site","🧭 HUB","🎫 Publish an ad","🇫🇷 Publish France","🇸🇳 Publish Senegal"],
-        kicker:"France · Senegal classified ads · direct contact · 0% commission",
-        h1:"NDIMBAL Ads France · Senegal",
-        lead:"Browse approved ads in France and Senegal: studio rental, apartment, land for sale, house for sale, car, bicycle, item, service, request or short ad, with an asking price when it is a sale. Each ad shows its country, area, currency and direct contact. DIGIYLYFE takes no commission.",
-        doctrine1:["Free to view","Publish with a ticket","Approved ads","Direct contact","0% commission","The field keeps control","France · Senegal","FCFA · EUR"],
-        doctrine2:["Senegal · 1 week · 5,000 FCFA","Senegal · 15 days · 10,000 FCFA","Senegal · 1 month · 20,000 FCFA","France · EUR ticket to confirm"],
-        doctrine3:["Free to view","DIGIY validation before public display"],
-        doctrine4:["🚗 Car for sale","🌍 Land for sale","🏡 House for sale","🚲 Bicycle for sale"],
-        publish:"🎫 Publish an ad",
-        audioTitle:"🎧 Understand NDIMBAL Ads",
-        audioText:"A short voice explains how to read an ad, contact directly and publish with a duration ticket without DIGIY commission.",
-        audioPlay:"🎧 Listen", audioReading:"⏸️ Reading",
-        examplesTitle:"Local examples",
-        examplesSub:"The asking price is shown with the country currency to avoid unnecessary calls.",
-        examples:[["Land for sale","Area, surface, papers, access, neighborhood.","Asking price: 8,500,000 FCFA"],["House for sale","Rooms, neighborhood, condition, visit.","Asking price: 32,000,000 FCFA"],["Car for sale","Brand, year, condition, papers, visit.","Asking price: 3,800,000 FCFA"],["Bicycle for sale","Condition, size, neighborhood, availability.","Asking price: 45,000 FCFA"]],
-        searchPlaceholder:"Search: France, Senegal, car for sale, land, house, bicycle, studio, service, Dakar, Saly, Sarlat…",
-        quick:["All","🇸🇳 Senegal","🇫🇷 France","Saly","Dakar","Mbour","Sarlat","Arcachon","Bordeaux","Paris","🔄 Reload"],
-        sectionTitle:"Available ads",
-        sectionSub:"Only approved ads should appear here, with country and area clearly readable.",
-        count:function(n){ return n + " ad" + (n > 1 ? "s" : ""); },
-        loading:"Loading…", error:"Error",
-        loadingGrid:"Loading NDIMBAL ads…",
-        emptyHtml:'No approved ad for the moment.<br>Come back later or publish an ad through inscription.html.<br><br><a class="railBtn gold" href="inscription.html">🎫 Publish an ad</a>',
-        noSupabase:"Supabase is unavailable in this browser.",
-        loadError:function(rpc){ return 'Unable to load public ads.<br>Check the public function <b>'+esc(rpc)+'</b>, published statuses and EXECUTE rights.'; },
-        zoneUnknown:"Area to confirm", durationUnknown:"Duration to confirm", detailsUnknown:"Details to confirm with the person.", pricePrefix:"💰 Asking price:", priceUnknown:"💰 Price to confirm", contactUnknown:"📞 Contact to confirm",
-        whatsapp:"💬 WhatsApp", sms:"✉️ SMS",
-        note:'<b>DIGIY rule:</b> this page is public. Viewing ads is free. To publish in France or Senegal, go through registration, choose the country, choose a duration, pay the ticket, then wait for DIGIY validation. Conditions, asking price, exact location and payment are discussed directly between people. DIGIYLYFE takes no commission and does not replace human validation.',
-        footer:"DIGIYLYFE ♾️ · NDIMBAL ADS · FRANCE · SENEGAL · DIRECT TO THE PEOPLE",
-        waMsg:function(title){return "Hello, I saw the NDIMBAL ad: " + (title || "ad") + ". I would like more information.";},
-        smsMsg:function(title){return "Hello, NDIMBAL ad: " + (title || "ad") + ". I would like more information.";}
+      france:{
+        label:"🇫🇷 France · EUR",
+        currency:"EUR",
+        paymentTitle:"📲 France · Sendwave vers Wave Sénégal",
+        paymentInstruction:"Depuis la France : paie par Sendwave en euros vers le Wave Sénégal officiel JB BEAUVILLE · +221 77 134 28 89, puis envoie la preuve par WhatsApp ou SMS.",
+        statusOk:"✅ Annonce France prête. Règle par Sendwave vers Wave Sénégal, puis envoie la preuve pour validation DIGIY.",
+        footerNote:"Règlement France par Sendwave vers Wave Sénégal"
       }
     };
 
-    function L(){ return I18N[LANG] || I18N.fr; }
-    function setText(sel, value){ const el = typeof sel === "string" ? document.querySelector(sel) : sel; if(el) el.textContent = value; }
-    function setHtml(sel, value){ const el = typeof sel === "string" ? document.querySelector(sel) : sel; if(el) el.innerHTML = value; }
-    function setSpanList(container, values){ if(!container || !values) return; Array.from(container.querySelectorAll("span")).forEach((el,i)=>{ if(values[i] !== undefined) el.textContent = values[i]; }); }
+    function clean(v){ return String(v||"").trim(); }
 
-    function applyLanguage(lang, updateUrl){
-      LANG = lang === "en" ? "en" : "fr";
-      window.DIGIY_NDIMBAL_LANG = LANG;
-      const d = L();
-      document.documentElement.lang = LANG;
-      document.title = d.docTitle;
-      const desc = document.querySelector('meta[name="description"]');
-      if(desc) desc.setAttribute("content", d.docDesc);
+    function fmt(n, currency){
+      const value = Number(n)||0;
+      if(currency === "EUR") return new Intl.NumberFormat("fr-FR").format(value) + " €";
+      return new Intl.NumberFormat("fr-FR").format(value) + " FCFA";
+    }
 
-      Array.from(document.querySelectorAll(".topRail > a")).slice(0,5).forEach((a,i)=>{ if(d.nav[i]) a.textContent = d.nav[i]; });
-      setText(".hero .kicker", d.kicker);
-      setText(".hero h1", d.h1);
-      setText(".hero .lead", d.lead);
+    function currentCountry(){
+      return country && country.value === "france" ? "france" : "senegal";
+    }
 
-      const docs = Array.from(document.querySelectorAll(".doctrine"));
-      setSpanList(docs[0], d.doctrine1);
-      setSpanList(docs[1], d.doctrine2);
-      if(docs[2]){ const pub = docs[2].querySelector("a.railBtn.gold"); if(pub) pub.textContent = d.publish; setSpanList(docs[2], d.doctrine3); }
-      setSpanList(docs[3], d.doctrine4);
+    function updateDurationLabels(){
+      if(!duration) return;
+      const c = currentCountry();
+      Array.from(duration.options).forEach(opt => {
+        const days = Number(opt.dataset.days || 7);
+        const labelDays = days === 7 ? "1 semaine" : (days === 15 ? "15 jours" : "1 mois");
+        if(c === "france"){
+          const eur = Number(opt.dataset.amountFrance || 0);
+          const fcfa = Number(opt.dataset.franceFcfa || 0);
+          opt.textContent = labelDays + " · " + fmt(eur, "EUR") + " · équiv. " + fmt(fcfa, "FCFA");
+        }else{
+          const fcfa = Number(opt.dataset.amountSenegal || 0);
+          opt.textContent = labelDays + " · " + fmt(fcfa, "FCFA");
+        }
+      });
+    }
 
-      setText(".audioTitle", d.audioTitle);
-      setText(".audioText", d.audioText);
-      setText("#audioPlay", d.audioPlay);
-      setText("#audioStop", "⏹ Stop");
+    function selected(){
+      const opt = duration.options[duration.selectedIndex];
+      const c = currentCountry();
+      const meta = PRICE_TEXT[c] || PRICE_TEXT.senegal;
+      const days = Number(opt.dataset.days || 7);
+      const labelDays = days === 7 ? "1 semaine" : (days === 15 ? "15 jours" : "1 mois");
+      const amount = c === "france" ? Number(opt.dataset.amountFrance || 15) : Number(opt.dataset.amountSenegal || 5000);
+      const franceFcfa = Number(opt.dataset.franceFcfa || 0);
 
-      setText(".examplesTitle strong", d.examplesTitle);
-      setText(".examplesTitle span", d.examplesSub);
-      const ep = document.querySelector(".examplesTitle a.railBtn.gold"); if(ep) ep.textContent = d.publish;
-      Array.from(document.querySelectorAll(".exampleCard")).forEach((card,i)=>{ const row=d.examples[i]; if(row){ setText(card.querySelector("b"), row[0]); setText(card.querySelector("small"), row[1]); setText(card.querySelector(".examplePrice"), row[2]); }});
+      return {
+        country:c,
+        countryLabel:meta.label,
+        currency:meta.currency,
+        name: opt.value,
+        days: days,
+        amount: amount,
+        franceFcfa: franceFcfa,
+        label: c === "france"
+          ? labelDays + " · " + fmt(amount, "EUR") + " · équiv. " + fmt(franceFcfa, "FCFA")
+          : labelDays + " · " + fmt(amount, "FCFA")
+      };
+    }
 
-      if(search) search.placeholder = d.searchPlaceholder;
-      Array.from(document.querySelectorAll(".quickBtn")).forEach((btn,i)=>{ if(d.quick[i]) btn.textContent = d.quick[i]; });
-      setText(".sectionTitle", d.sectionTitle);
-      setText(".sectionSub", d.sectionSub);
-      setHtml(".note", d.note);
-      setText(".footer", d.footer);
+    function valid(){
+      return clean(fields.title.value).length >= 5 &&
+             clean(fields.zone.value).length > 0 &&
+             clean(fields.contact.value).length >= 6;
+    }
 
-      const frBtn = document.getElementById("digiyLangFr");
-      const enBtn = document.getElementById("digiyLangEn");
-      if(frBtn) frBtn.classList.toggle("active", LANG === "fr");
-      if(enBtn) enBtn.classList.toggle("active", LANG === "en");
+    function defaultNote(){
+      const s = selected();
+      const name = clean(fields.payerName.value) || "—";
+      const phone = clean(fields.payerPhone.value) || clean(fields.contact.value) || "—";
+      const base = s.country === "france"
+        ? "Règlement Sendwave France vers Wave Sénégal pour NDIMBAL Annonces"
+        : "Paiement Wave Sénégal envoyé pour NDIMBAL Annonces";
+      const equiv = s.country === "france" ? " — équivalence grille : " + fmt(s.franceFcfa, "FCFA") : "";
+      const canal = s.country === "france" ? " — canal : Sendwave → Wave Sénégal JB BEAUVILLE +221 77 134 28 89" : " — canal : Wave Sénégal JB BEAUVILLE +221 77 134 28 89";
+      return base + " — " + s.countryLabel + " — " + s.label + " — " + fmt(s.amount, s.currency) + equiv + canal + " — annonce : " + (clean(fields.title.value) || "sans titre") + " — prix demandé : " + (clean(fields.price.value) || "non précisé") + " — au nom de " + name + " — tél " + phone + ".";
+    }
+
+    function message(){
+      const s = selected();
+      const meta = PRICE_TEXT[s.country] || PRICE_TEXT.senegal;
+      const lines = [
+        "📣 NDIMBAL Annonces",
+        "Pays : " + s.countryLabel,
+        "Durée : " + s.label,
+        "Montant : " + fmt(s.amount, s.currency)
+      ];
+
+      if(s.country === "france"){
+        lines.push("Équivalence grille France : " + fmt(s.franceFcfa, "FCFA") + " → " + fmt(s.amount, "EUR"));
+        lines.push("Canal de règlement : Sendwave depuis la France → Wave Sénégal");
+        lines.push("Bénéficiaire : JB BEAUVILLE");
+        lines.push("Téléphone Wave Sénégal : " + ADMIN_WAVE_DISPLAY);
+      }
+
+      lines.push(
+        "",
+        "Catégorie : " + clean(fields.category.value),
+        "Titre : " + (clean(fields.title.value) || "—"),
+        "Prix demandé : " + (clean(fields.price.value) || "—"),
+        "Précision prix : " + (clean(fields.priceNote.value) || "—"),
+        "Zone : " + (clean(fields.zone.value) || "—"),
+        "Contact annonce : " + (clean(fields.contact.value) || "—"),
+        "",
+        "Détails :",
+        clean(fields.details.value) || "—",
+        "",
+        meta.footerNote + " :",
+        "Nom : JB BEAUVILLE",
+        "Téléphone Wave Sénégal : " + ADMIN_WAVE_DISPLAY,
+        "Payeur : " + (clean(fields.payerName.value) || "—"),
+        "Téléphone payeur : " + (clean(fields.payerPhone.value) || "—"),
+        "Note : " + (clean(fields.payNote.value) || defaultNote()),
+        "",
+        "Règle : preuve reçue + validation DIGIY avant affichage public. 0% commission."
+      );
+
+      return lines.join("\n");
+    }
+
+    function applyCountryDefaults(){
+      const c = currentCountry();
+      if(c === "france"){
+        if(fields.zone && !clean(fields.zone.value)) fields.zone.placeholder = "Ex : Sarlat, Arcachon, Bordeaux, Paris";
+        if(fields.contact && !clean(fields.contact.value)) fields.contact.placeholder = "Ex : +33 6 00 00 00 00";
+      }else{
+        if(fields.zone) fields.zone.placeholder = "Ex : Saly, Mbour, Dakar";
+        if(fields.contact) fields.contact.placeholder = "Ex : +221 77 000 00 00";
+      }
+    }
+
+    function update(){
+      updateDurationLabels();
+      applyCountryDefaults();
+
+      const s = selected();
+      const meta = PRICE_TEXT[s.country] || PRICE_TEXT.senegal;
+
+      $("countryLabel").textContent = s.countryLabel;
+      $("choiceLabel").textContent = s.label;
+      $("amountLabel").textContent = fmt(s.amount, s.currency);
+      $("totalLabel").textContent = fmt(s.amount, s.currency);
+      $("paymentAmount").textContent = fmt(s.amount, s.currency);
+      $("paymentTitle").textContent = meta.paymentTitle;
+      $("paymentInstruction").textContent = meta.paymentInstruction;
+      const methodEl = $("officialMethod");
+      if(methodEl){
+        methodEl.textContent = s.country === "france" ? "Sendwave → Wave Sénégal" : "Wave Sénégal direct";
+      }
+      const sendwaveBox = $("sendwaveBox");
+      if(sendwaveBox){
+        sendwaveBox.style.display = s.country === "france" ? "block" : "none";
+      }
+      const sendwaveActions = $("sendwaveActions");
+      if(sendwaveActions){
+        sendwaveActions.style.display = s.country === "france" ? "grid" : "none";
+      }
+      $("franceEquivLabel").textContent = s.country === "france"
+        ? fmt(s.franceFcfa, "FCFA") + " → " + fmt(s.amount, "EUR")
+        : "—";
+
+      const rule = $("priceRule");
+      if(rule){
+        rule.textContent = s.country === "france"
+          ? "🇫🇷 France : 1 semaine = 15 € (équiv. 7 000 FCFA) · 15 jours = 25 € (équiv. 10 000 FCFA) · 1 mois = 40 € (équiv. 20 000 FCFA). Règlement : Sendwave → Wave Sénégal JB BEAUVILLE +221 77 134 28 89."
+          : "🇸🇳 Sénégal : 1 semaine = 5 000 FCFA · 15 jours = 10 000 FCFA · 1 mois = 20 000 FCFA. Règlement Wave Sénégal : JB BEAUVILLE +221 77 134 28 89.";
+      }
+
+      if(!clean(fields.payNote.value) || fields.payNote.dataset.auto === "1"){
+        fields.payNote.value = defaultNote();
+        fields.payNote.dataset.auto = "1";
+      }
+
+      const msg = message();
+      $("waBtn").href = "https://wa.me/" + ADMIN_WAVE_PHONE + "?text=" + encodeURIComponent(msg);
+      $("smsBtn").href = "sms:+" + ADMIN_WAVE_PHONE + "?body=" + encodeURIComponent(msg);
 
       try{
-        const u = new URL(location.href);
-        if(LANG === "en") u.searchParams.set("lang","en");
-        else u.searchParams.delete("lang");
-        if(updateUrl) history.replaceState({}, "", u.pathname + u.search + u.hash);
+        localStorage.setItem("digiy_ndimbal_annonce_wave_draft_v1", JSON.stringify({
+          country:country.value,
+          duration:duration.value,
+          category:fields.category.value,
+          title:fields.title.value,
+          price:fields.price.value,
+          priceNote:fields.priceNote.value,
+          zone:fields.zone.value,
+          contact:fields.contact.value,
+          details:fields.details.value,
+          payerName:fields.payerName.value,
+          payerPhone:fields.payerPhone.value,
+          payNote:fields.payNote.value,
+          autoNote:fields.payNote.dataset.auto || ""
+        }));
       }catch(_){}
 
-      render();
+      $("preview").textContent = msg;
+      $("preview").classList.add("show");
+      $("status").className = valid() ? "status ok" : "status err";
+      $("status").textContent = valid()
+        ? meta.statusOk
+        : "⚠️ Champs obligatoires : titre, zone et contact annonce.";
     }
 
-    function esc(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    function norm(s){
-      return String(s || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\\u0300-\\u036f]/g,"")
-        .trim();
-    }
-
-    function digits(s){
-      let p = String(s || "").replace(/\\D/g,"");
-      if(p.startsWith("00221")) p = "221" + p.slice(5);
-      if(p.length === 9 && p.startsWith("7")) p = "221" + p;
-      return p;
-    }
-
-    function phoneDisplay(phone){
-      const p = digits(phone);
-      if(p.startsWith("221") && p.length >= 12){
-        return "+221 " + p.slice(3,5) + " " + p.slice(5,8) + " " + p.slice(8,10) + " " + p.slice(10,12);
-      }
-      if(p.startsWith("33") && p.length >= 11){
-        return "+33 " + p.slice(2,3) + " " + p.slice(3,5) + " " + p.slice(5,7) + " " + p.slice(7,9) + " " + p.slice(9,11);
-      }
-      return String(phone || "");
-    }
-
-    function waLink(phone, title){
-      const p = digits(phone);
-      const msg = L().waMsg(title);
-      if(!p) return "#";
-      return "https://wa.me/" + p + "?text=" + encodeURIComponent(msg);
-    }
-
-    function smsLink(phone, title){
-      const p = digits(phone);
-      const msg = L().smsMsg(title);
-      if(!p) return "#";
-      return "sms:+" + p + "?body=" + encodeURIComponent(msg);
-    }
-
-    function readField(row, names){
-      for(const n of names){
-        if(row && row[n] !== undefined && row[n] !== null && String(row[n]).trim() !== "") return row[n];
-      }
-      return "";
-    }
-
-    function inferCountry(row){
-      const raw = String(readField(row, ["country","pays","territory","territoire","market_country"]) || "").trim();
-      const hay = norm([
-        raw,
-        readField(row, ["zone","location","ville","city","localisation"]),
-        readField(row, ["details","description","body","note_public"])
-      ].join(" "));
-      if(hay.includes("france") || hay.includes("sarlat") || hay.includes("arcachon") || hay.includes("bordeaux") || hay.includes("paris")) return "France";
-      if(hay.includes("senegal") || hay.includes("sénégal") || hay.includes("saly") || hay.includes("dakar") || hay.includes("mbour") || hay.includes("thies") || hay.includes("thiès") || hay.includes("aibd")) return "Sénégal";
-      return raw || "Pays à préciser";
-    }
-
-    function countryEmoji(country){
-      const c = norm(country);
-      if(c.includes("france")) return "🇫🇷";
-      if(c.includes("senegal") || c.includes("sénégal")) return "🇸🇳";
-      return "🌍";
-    }
-
-    function inferCurrency(row, country){
-      const raw = String(readField(row, ["currency","devise","money","monnaie"]) || "").trim();
-      if(raw) return raw;
-      const c = norm(country);
-      if(c.includes("france")) return "EUR";
-      if(c.includes("senegal") || c.includes("sénégal")) return "FCFA";
-      return "";
-    }
-
-    function annonceCard(row){
-      const d = L();
-      const title = readField(row, ["title","titre","label"]) || "Annonce NDIMBAL";
-      const zone = readField(row, ["zone","location","ville","city","localisation"]) || d.zoneUnknown;
-      const country = inferCountry(row);
-      const currency = inferCurrency(row, country);
-      const category = readField(row, ["category","categorie","type"]) || "";
-      const when = readField(row, ["duration_label","when_text","when","moment","urgence","date_text"]) || d.durationUnknown;
-      const details = readField(row, ["details","description","body","note_public"]) || d.detailsUnknown;
-      const price = readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]);
-      const priceNote = readField(row, ["price_note","prix_note","priceNote","condition_prix"]);
-      const phone = readField(row, ["phone","whatsapp","telephone","tel"]);
-      const ref = readField(row, ["ref","reference","id"]);
-
-      return `
-        <article class="annonceCard">
-          <div class="cardTop">
-            <div style="display:flex;gap:12px;align-items:flex-start;min-width:0">
-              <div class="annonceIcon">💼</div>
-              <div style="min-width:0">
-                <h2 class="annonceTitle">${esc(title)}</h2>
-                <div class="meta" style="margin-top:8px">
-                  <span class="tag green">${countryEmoji(country)} ${esc(country)}</span>
-                  <span class="tag green">📍 ${esc(zone)}</span>
-                  ${currency ? `<span class="tag">💱 ${esc(currency)}</span>` : ""}
-                  ${category ? `<span class="tag">📌 ${esc(category)}</span>` : ""}
-                  <span class="tag">⏳ ${esc(when)}</span>
-                  ${ref ? `<span class="tag">#${esc(ref)}</span>` : ""}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="details">${esc(details)}</div>
-
-          ${price ? `<div class="tag green">${esc(d.pricePrefix)} ${esc(price)}${currency ? " " + esc(currency) : ""}${priceNote ? " · " + esc(priceNote) : ""}</div>` : `<div class="tag">${esc(d.priceUnknown)}</div>`}
-
-          ${phone ? `<div class="tag">📞 ${esc(phoneDisplay(phone))}</div>` : `<div class="tag">${esc(d.contactUnknown)}</div>`}
-
-          <div class="contactRow">
-            <a class="contactBtn whatsapp" href="${esc(waLink(phone,title))}" target="_blank" rel="noopener">${esc(d.whatsapp)}</a>
-            <a class="contactBtn" href="${esc(smsLink(phone,title))}">${esc(d.sms)}</a>
-          </div>
-        </article>
-      `;
-    }
-
-    function statusOk(row){
-      const s = norm(readField(row, ["status","etat","state"]));
-      return ["approved","approve","published","public","validated","valide","validé","active","online"].includes(s);
-    }
-
-    function filterAnnonces(){
-      const q = norm(search.value);
-      const z = norm(activeZone);
-
-      return allAnnonces.filter(row => {
-        if(!statusOk(row)) return false;
-
-        const hay = norm([
-          readField(row, ["title","titre","label"]),
-          readField(row, ["category","categorie","type"]),
-          inferCountry(row),
-          inferCurrency(row, inferCountry(row)),
-          readField(row, ["zone","location","ville","city","localisation"]),
-          readField(row, ["duration_label","when_text","when","moment","urgence","date_text"]),
-          readField(row, ["details","description","body","note_public"]),
-          readField(row, ["price","prix","amount_price","sale_price","asking_price","prix_demande","price_text","prix_text"]),
-          readField(row, ["price_note","prix_note","priceNote","condition_prix"])
-        ].join(" "));
-
-        const zoneValue = norm([
-          inferCountry(row),
-          readField(row, ["zone","location","ville","city","localisation"])
-        ].join(" "));
-
-        return (!q || hay.includes(q)) && (!z || zoneValue.includes(z));
+    if(country){
+      country.addEventListener("change", () => {
+        fields.payNote.dataset.auto = "1";
+        update();
       });
     }
 
-    function render(){
-      const list = filterAnnonces();
+    duration.addEventListener("change", () => {
+      fields.payNote.dataset.auto = "1";
+      update();
+    });
 
-      countPill.textContent = L().count(list.length);
+    Object.values(fields).forEach(el => {
+      el.addEventListener("input", () => {
+        if(el === fields.payNote) fields.payNote.dataset.auto = "0";
+        update();
+      });
+    });
 
-      if(!list.length){
-        grid.innerHTML = `
-          <div class="empty">${L().emptyHtml}</div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = list.map(annonceCard).join("");
-    }
-
-    async function loadAnnonces(){
-      if(!SB){
-        grid.innerHTML = `<div class="empty">${L().noSupabase}</div>`;
-        countPill.textContent = L().error;
-        return;
-      }
-
-      grid.innerHTML = `<div class="empty">${L().loadingGrid}</div>`;
-      countPill.textContent = L().loading;
-
+    $("copyBtn").addEventListener("click", async () => {
+      const msg = message();
       try{
-        /*
-          La page publique lit la fonction ndimbal_public_annonces.
-          Elle renvoie uniquement les annonces validées / publiées / actives.
-        */
-        const { data, error } = await SB.rpc(PUBLIC_RPC, {
-          p_limit: 80,
-          p_query: search.value || null,
-          p_zone: null
+        await navigator.clipboard.writeText(msg);
+        $("status").className = "status ok";
+        $("status").textContent = "✅ Résumé copié. Tu peux l’envoyer avec la preuve de règlement.";
+      }catch(_){
+        $("preview").textContent = msg;
+        $("preview").classList.add("show");
+      }
+    });
+
+    $("clearBtn").addEventListener("click", () => {
+      if(!confirm("Effacer l’annonce préparée ?")) return;
+      try{ localStorage.removeItem("digiy_ndimbal_annonce_wave_draft_v1"); }catch(_){}
+      ["title","price","priceNote","zone","contact","details","payerName","payerPhone","payNote"].forEach(k => fields[k].value = "");
+      fields.payNote.dataset.auto = "1";
+      if(country) country.value = "senegal";
+      duration.selectedIndex = 0;
+      fields.category.selectedIndex = 0;
+      update();
+    });
+
+    try{
+      const q = new URLSearchParams(location.search);
+      const pays = String(q.get("pays") || q.get("country") || "").toLowerCase();
+
+      const raw = localStorage.getItem("digiy_ndimbal_annonce_wave_draft_v1");
+      if(raw){
+        const d = JSON.parse(raw);
+        if(d.country && country) country.value = d.country === "france" ? "france" : "senegal";
+        if(d.duration) duration.value = d.duration;
+        ["category","title","price","priceNote","zone","contact","details","payerName","payerPhone","payNote"].forEach(k=>{
+          if(d[k]) fields[k].value = d[k];
         });
-
-        if(error) throw error;
-
-        allAnnonces = Array.isArray(data) ? data : [];
-        render();
-      }catch(err){
-        console.error(err);
-        grid.innerHTML = `<div class="empty">${L().loadError(PUBLIC_RPC)}</div>`;
-        countPill.textContent = L().error;
-      }
-    }
-
-    let searchTimer = null;
-    search.addEventListener("input", () => {
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(loadAnnonces, 260);
-    });
-
-    document.querySelectorAll("[data-zone]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        activeZone = btn.getAttribute("data-zone") || "";
-        document.querySelectorAll("[data-zone]").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        loadAnnonces();
-      });
-    });
-
-    document.getElementById("refreshBtn").addEventListener("click", loadAnnonces);
-
-    const langFrBtn = document.getElementById("digiyLangFr");
-    const langEnBtn = document.getElementById("digiyLangEn");
-    if(langFrBtn) langFrBtn.addEventListener("click", () => applyLanguage("fr", true));
-    if(langEnBtn) langEnBtn.addEventListener("click", () => applyLanguage("en", true));
-
-    const urlParams = new URL(location.href).searchParams;
-    const initialLang = urlParams.get("lang") === "en" ? "en" : "fr";
-    const pays = norm(urlParams.get("pays") || "");
-    if(pays === "france") activeZone = "France";
-    if(pays === "senegal" || pays === "sénégal") activeZone = "Sénégal";
-    if(activeZone){
-      document.querySelectorAll("[data-zone]").forEach(b => {
-        b.classList.toggle("active", norm(b.getAttribute("data-zone") || "") === norm(activeZone));
-      });
-    }
-    applyLanguage(initialLang, false);
-    loadAnnonces();
-  })();
-  </script>
-
-  <script>
-  (function(){
-    "use strict";
-
-    const textFr =
-      "Bienvenue dans NDIMBAL Annonces France Sénégal. Ici, tu vois le mur public des annonces validées. " +
-      "Tu peux chercher par pays, par zone, lire le titre, la catégorie, les détails, le prix et la devise, puis contacter directement par Ouatsap ou S M S. " +
-      "DIGIYLYFE ne prend aucune commission. Les conditions et le paiement se discutent directement entre les personnes. " +
-      "Pour publier une annonce en France ou au Sénégal, appuie sur Publier une annonce. L’inscription permet de choisir le pays, la durée, puis DIGIY valide avant affichage public.";
-
-    const textEn =
-      "Welcome to NDIMBAL Ads France Senegal. Here you can see the public wall of approved ads. " +
-      "You can search by country and area, read the title, category, details, price and currency, then contact directly by WhatsApp or SMS. " +
-      "DIGIYLYFE takes no commission. Conditions and payment are discussed directly between people. " +
-      "To publish an ad in France or Senegal, press Publish an ad. Registration lets you choose the country and duration, then DIGIY validates before public display.";
-
-    function currentLang(){ return window.DIGIY_NDIMBAL_LANG === "en" ? "en" : "fr"; }
-    function currentText(){ return currentLang() === "en" ? textEn : textFr; }
-    function playLabel(){ return currentLang() === "en" ? "🎧 Listen" : "🎧 Écouter"; }
-    function readingLabel(){ return currentLang() === "en" ? "⏸️ Reading" : "⏸️ Lecture en cours"; }
-
-    const play = document.getElementById("audioPlay");
-    const stop = document.getElementById("audioStop");
-
-    function canSpeak(){
-      return "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
-    }
-
-    function pickVoice(){
-      if(!canSpeak()) return null;
-      const voices = window.speechSynthesis.getVoices() || [];
-      if(currentLang() === "en"){
-        return voices.find(v => /^en/i.test(v.lang || "") && /US|GB|UK|English/i.test((v.lang || "") + " " + (v.name || ""))) ||
-               voices.find(v => /^en/i.test(v.lang || "")) ||
-               voices[0] ||
-               null;
-      }
-      return voices.find(v => /^fr/i.test(v.lang || "") && /FR/i.test(v.lang || "")) ||
-             voices.find(v => /^fr/i.test(v.lang || "")) ||
-             voices[0] ||
-             null;
-    }
-
-    function stopAudio(){
-      if(canSpeak()) window.speechSynthesis.cancel();
-      if(play) play.textContent = playLabel();
-    }
-
-    function speak(){
-      if(!canSpeak()) return;
-      if(window.speechSynthesis.speaking){
-        stopAudio();
-        return;
+        fields.payNote.dataset.auto = d.autoNote || (d.payNote ? "0" : "1");
+      }else{
+        fields.payNote.dataset.auto = "1";
       }
 
-      stopAudio();
-
-      const u = new SpeechSynthesisUtterance(currentText());
-      u.lang = currentLang() === "en" ? "en-US" : "fr-FR";
-      u.rate = 0.88;
-      u.pitch = 1;
-      u.volume = 1;
-
-      const voice = pickVoice();
-      if(voice) u.voice = voice;
-
-      u.onstart = function(){ if(play) play.textContent = readingLabel(); };
-      u.onend = stopAudio;
-      u.onerror = stopAudio;
-
-      window.speechSynthesis.speak(u);
+      if((pays === "france" || pays === "fr") && country){
+        country.value = "france";
+        fields.payNote.dataset.auto = "1";
+      }
+      if((pays === "senegal" || pays === "sénégal" || pays === "sn") && country){
+        country.value = "senegal";
+        fields.payNote.dataset.auto = "1";
+      }
+    }catch(_){
+      fields.payNote.dataset.auto = "1";
     }
 
-    play && play.addEventListener("click", speak);
-    stop && stop.addEventListener("click", stopAudio);
-    window.addEventListener("pagehide", stopAudio);
-
-    if(canSpeak()){
-      window.speechSynthesis.onvoiceschanged = function(){};
-    }
+    update();
   })();
   </script>
-  <script>
-  // DIGIY NDIMBAL: liens internes du dépôt. Le mur d’annonces = index.html, publication = inscription.html.
-  (function(){
-    document.querySelectorAll('a[href="index.html"]').forEach(function(a){ a.setAttribute('href','index.html'); });
-    document.querySelectorAll('a[href="inscription.html"]').forEach(function(a){ a.setAttribute('href','inscription.html'); });
-  })();
-  </script>
-
 </body>
 </html>
+
+
+
 
 
 
