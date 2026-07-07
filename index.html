@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="index,follow"/>
-  <meta name="digiy-version" content="ndimbal-express-index-annonces-supabase-ndimbal-annonces-20260613"/>
-  <!-- DIGIY LINK RULE: internal NDIMBAL links stay relative: ./index.html and ./inscription.html for GitHub Pages/CNAME reliability. -->
+  <meta name="digiy-version" content="ndimbal-annonces-public-demande-sans-engagement-ticket-publication-20260707"/>
+  <!-- DIGIY LINK RULE: internal NDIMBAL links stay relative: ./index.html and ./demande.html for GitHub Pages/CNAME reliability. -->
   <meta name="digiy-links" content="absolute-ndimbal-express-20260620"/>
-  <title>NDIMBAL Annonces — Mur public des annonces validées</title>
-  <meta name="description" content="NDIMBAL Annonces : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission."/>
+  <title>NDIMBAL Annonces — Mur public · voir gratuit · ticket publication</title>
+  <meta name="description" content="NDIMBAL Annonces : mur public des annonces validées — voir gratuit, préparer une annonce sans engagement, publier avec ticket durée payant, contact direct, 0% commission sur les affaires entre personnes."/>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -479,6 +479,95 @@
     }
 
 
+    .ndimbalDoctrinePanel{
+      margin-top:14px;
+      border:2px solid rgba(250,204,21,.34);
+      border-radius:26px;
+      background:
+        radial-gradient(420px 180px at 0% 0%,rgba(250,204,21,.14),transparent 65%),
+        radial-gradient(420px 180px at 100% 0%,rgba(34,197,94,.13),transparent 65%),
+        linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.04));
+      padding:16px;
+      box-shadow:0 14px 30px rgba(0,0,0,.18);
+    }
+
+    .ndimbalDoctrineTag{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      max-width:100%;
+      min-height:34px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,.42);
+      background:rgba(250,204,21,.12);
+      color:#fff8db;
+      font-size:12px;
+      font-weight:1000;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .ndimbalDoctrinePanel h2{
+      margin:10px 0 8px;
+      color:#fff;
+      font-size:clamp(27px,6vw,46px);
+      line-height:1;
+      letter-spacing:-.05em;
+      font-weight:1000;
+    }
+
+    .ndimbalDoctrinePanel h2 span{color:#bbf7d0}
+
+    .ndimbalDoctrinePanel p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.58;
+      font-size:14px;
+      font-weight:900;
+      max-width:860px;
+    }
+
+    .ndimbalDoctrineGrid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:9px;
+      margin-top:12px;
+    }
+
+    .ndimbalDoctrineGrid span{
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      border-radius:18px;
+      padding:11px;
+      color:#fff;
+      font-size:13px;
+      line-height:1.35;
+      font-weight:1000;
+    }
+
+    .ndimbalDoctrineGrid span:first-child{
+      color:#052e16;
+      background:linear-gradient(135deg,#fde68a,var(--gold),#22c55e);
+      border-color:rgba(255,255,255,.28);
+    }
+
+    .ndimbalDoctrineQuote{
+      margin-top:12px!important;
+      border-left:4px solid var(--gold);
+      background:rgba(250,204,21,.10);
+      border-radius:16px;
+      padding:12px 14px;
+      color:#fff8db!important;
+      font-weight:1000!important;
+    }
+
+    @media(max-width:760px){
+      .ndimbalDoctrineGrid{grid-template-columns:1fr}
+    }
+
+
+
     .examplesBlock{
       margin-top:14px;
       border:1px solid rgba(250,204,21,.24);
@@ -613,7 +702,7 @@
       <!-- DIGIY: le mur public est la racine/index.html du dépôt. Aucun fichier mur-annonces.html. -->
       <a class="railBtn" href="https://digiylyfe.com/" rel="noopener">🌍 Site</a>
       <a class="railBtn" href="https://digiy-hub.digiylyfe.com/" rel="noopener">🧭 HUB</a>
-      <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
+      <a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>
       <div class="digiyLangSwitch" aria-label="Choisir la langue">
         <button id="digiyLangFr" type="button" class="active">FR</button>
         <button id="digiyLangEn" type="button">EN</button>
@@ -624,30 +713,31 @@
       <div class="heroTop">
         <div class="mark" aria-hidden="true">⚡</div>
         <div>
-          <div class="kicker">Petites annonces terrain · contact direct · 0% commission</div>
+          <div class="kicker">Petites annonces terrain · voir gratuit · contact direct · 0% commission</div>
           <h1>NDIMBAL Annonces</h1>
           <p class="lead">
             Découvre les annonces validées du terrain : location studio, appartement, vente terrain, vente maison,
             vente voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente.
-            Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.
+            Voir est gratuit. Préparer une annonce est sans engagement. L’affichage public passe par un ticket durée payé
+            et une validation DIGIY. Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.
           </p>
           <div class="doctrine" aria-label="Doctrine NDIMBAL Annonces">
             <span>Voir gratuit</span>
-            <span>Publier avec ticket</span>
+            <span>Préparer sans engagement</span><span>Publier avec ticket payant</span>
             <span>Annonces validées</span>
             <span>Contact direct</span>
             <span>0% commission</span>
             <span>Le terrain garde la main</span>
           </div>
           <div class="doctrine" aria-label="Tarifs NDIMBAL Annonces">
-            <span>1 semaine · 5 000 FCFA</span>
-            <span>15 jours · 10 000 FCFA</span>
-            <span>1 mois · 20 000 FCFA</span>
+            <span>Ticket 7 jours · 5 000 FCFA</span>
+            <span>Ticket 15 jours · 10 000 FCFA</span>
+            <span>Ticket 30 jours · 20 000 FCFA</span>
           </div>
           <div class="doctrine" aria-label="Action NDIMBAL Annonces">
-            <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
+            <a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>
             <span>Voir gratuit</span>
-            <span>Validation DIGIY avant affichage</span>
+            <span>Préparation sans engagement</span><span>Validation DIGIY avant affichage</span>
           </div>
           <div class="doctrine" aria-label="Exemples NDIMBAL Annonces">
             <span>🚗 Vente voiture</span>
@@ -661,7 +751,7 @@
       <div class="audioBox">
         <div class="audioTitle">🎧 Comprendre NDIMBAL Annonces</div>
         <div class="audioText">
-          Une courte voix explique comment lire une annonce, contacter directement et publier avec ticket durée sans commission DIGIY.
+          Une courte voix explique comment lire une annonce gratuitement, préparer une annonce sans engagement, puis publier avec ticket durée sans commission DIGIY.
         </div>
         <div class="audioActions">
           <button class="audioBtn" id="audioPlay" type="button">🎧 Écouter</button>
@@ -670,13 +760,32 @@
       </div>
     </section>
 
+    <section class="ndimbalDoctrinePanel" aria-label="Doctrine commerciale NDIMBAL Annonces">
+      <span class="ndimbalDoctrineTag">Voir gratuit · Demande sans engagement · Ticket publication payant · 0% commission</span>
+      <h2>Le mur montre les annonces. <span>DIGIY ne prend pas l’affaire.</span></h2>
+      <p>
+        NDIMBAL Annonces est un mur public d’annonces validées. Lire les annonces est gratuit.
+        Préparer une annonce est sans engagement. La publication devient payante seulement avec un ticket durée
+        et après validation DIGIY. La vente, le prix, la négociation, le rendez-vous et l’accord restent entre les personnes.
+      </p>
+      <div class="ndimbalDoctrineGrid">
+        <span>✅ Voir les annonces : gratuit</span>
+        <span>📝 Préparer l’annonce : sans engagement</span>
+        <span>🎫 Publier : ticket durée payant</span>
+        <span>🤝 0% commission sur l’affaire</span>
+      </div>
+      <p class="ndimbalDoctrineQuote">
+        DIGIY organise la visibilité de l’annonce. La relation et la valeur restent entre les personnes.
+      </p>
+    </section>
+
     <section class="examplesBlock" aria-label="Exemples annonces terrain">
       <div class="examplesTitle">
         <div>
           <strong>Exemples terrain</strong><br>
           <span>Le prix demandé est affiché pour éviter les appels inutiles.</span>
         </div>
-        <a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>
+        <a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>
       </div>
 
       <div class="examplesGrid">
@@ -736,12 +845,13 @@
 
     <div class="note">
       <b>Règle DIGIY :</b> cette page est publique.
-      Voir les annonces est gratuit. Pour publier, il faut passer par l’inscription, choisir une durée, régler le ticket, puis attendre la validation DIGIY.
-      Les conditions, le prix, le lieu précis et le paiement de l’annonce se discutent directement entre les personnes.
+      Voir les annonces est gratuit. Préparer une annonce est sans engagement.
+      Pour publier, il faut passer par la demande, choisir une durée, régler le ticket, puis attendre la validation DIGIY.
+      Les conditions, le prix, le lieu précis et l’affaire se discutent directement entre les personnes.
       DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.
     </div>
 
-    <div class="footer">DIGIYLYFE ♾️ · NDIMBAL ANNONCES · DIRECT AU PEUPLE</div>
+    <div class="footer">DIGIYLYFE ♾️ · NDIMBAL ANNONCES · VOIR GRATUIT · TICKET PUBLICATION · DIRECT AU PEUPLE</div>
   </main>
 
   <script>
@@ -765,19 +875,19 @@
 
     const I18N = {
       fr:{
-        docTitle:"NDIMBAL Annonces — Mur public des annonces validées",
-        docDesc:"NDIMBAL Annonces : mur public des annonces validées — location, vente, terrain, maison, voiture, service, annonce courte. Voir gratuit, publier avec ticket durée, contact direct, 0% commission.",
-        nav:["🌍 Site","🧭 HUB","🎫 Publier une annonce"],
-        kicker:"Petites annonces terrain · contact direct · 0% commission",
+        docTitle:"NDIMBAL Annonces — Mur public · voir gratuit · ticket publication",
+        docDesc:"NDIMBAL Annonces : mur public des annonces validées — voir gratuit, préparer une annonce sans engagement, publier avec ticket durée payant, contact direct, 0% commission sur les affaires entre personnes.",
+        nav:["🌍 Site","🧭 HUB","🎫 Préparer une annonce"],
+        kicker:"Petites annonces terrain · voir gratuit · contact direct · 0% commission",
         h1:"NDIMBAL Annonces",
-        lead:"Découvre les annonces validées du terrain : location studio, appartement, vente terrain, vente maison, vente voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente. Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.",
-        doctrine1:["Voir gratuit","Publier avec ticket","Annonces validées","Contact direct","0% commission","Le terrain garde la main"],
-        doctrine2:["1 semaine · 5 000 FCFA","15 jours · 10 000 FCFA","1 mois · 20 000 FCFA"],
-        doctrine3:["Voir gratuit","Validation DIGIY avant affichage"],
+        lead:"Découvre les annonces validées du terrain : location studio, appartement, vente terrain, vente maison, vente voiture, vélo, objet, service, recherche ou annonce courte, avec prix demandé quand il s’agit d’une vente. Voir est gratuit. Préparer une annonce est sans engagement. L’affichage public passe par un ticket durée payé et une validation DIGIY. Le contact reste direct entre les personnes. DIGIYLYFE ne prend pas de commission.",
+        doctrine1:["Voir gratuit","Préparer sans engagement","Ticket publication payant","Annonces validées","Contact direct","0% commission"],
+        doctrine2:["Ticket 7 jours · 5 000 FCFA","Ticket 15 jours · 10 000 FCFA","Ticket 30 jours · 20 000 FCFA"],
+        doctrine3:["Voir gratuit","Préparation sans engagement","Validation DIGIY avant affichage"],
         doctrine4:["🚗 Vente voiture","🌍 Vente terrain","🏡 Vente maison","🚲 Vente vélo"],
-        publish:"🎫 Publier une annonce",
+        publish:"🎫 Préparer une annonce",
         audioTitle:"🎧 Comprendre NDIMBAL Annonces",
-        audioText:"Une courte voix explique comment lire une annonce, contacter directement et publier avec ticket durée sans commission DIGIY.",
+        audioText:"Une courte voix explique comment lire une annonce gratuitement, préparer une annonce sans engagement, puis publier avec ticket durée sans commission DIGIY.",
         audioPlay:"🎧 Écouter", audioReading:"⏸️ Lecture en cours",
         examplesTitle:"Exemples terrain",
         examplesSub:"Le prix demandé est affiché pour éviter les appels inutiles.",
@@ -789,30 +899,30 @@
         count:function(n){ return n + " annonce" + (n > 1 ? "s" : ""); },
         loading:"Chargement…", error:"Erreur",
         loadingGrid:"Chargement des annonces NDIMBAL…",
-        emptyHtml:'Aucune annonce validée pour le moment.<br>Reviens plus tard ou publie une annonce via la page d’inscription.<br><br><a class="railBtn gold" href="inscription.html">🎫 Publier une annonce</a>',
+        emptyHtml:'Aucune annonce validée pour le moment.<br>Reviens plus tard ou prépare une annonce via la page de demande.<br><br><a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>',
         noSupabase:"Supabase indisponible sur ce navigateur.",
         loadError:function(rpc){ return 'Impossible de charger les annonces publiques.<br>Vérifie la fonction publique <b>'+esc(rpc)+'</b>, les statuts publiés et les droits EXECUTE.'; },
         zoneUnknown:"Zone à préciser", durationUnknown:"Durée à préciser", detailsUnknown:"Détails à confirmer avec la personne.", pricePrefix:"💰 Prix demandé :", priceUnknown:"💰 Prix à préciser", contactUnknown:"📞 Contact à préciser",
         whatsapp:"💬 WhatsApp", sms:"✉️ SMS",
-        note:'<b>Règle DIGIY :</b> cette page est publique. Voir les annonces est gratuit. Pour publier, il faut passer par l’inscription, choisir une durée, régler le ticket, puis attendre la validation DIGIY. Les conditions, le prix, le lieu précis et le paiement de l’annonce se discutent directement entre les personnes. DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.',
-        footer:"DIGIYLYFE ♾️ · NDIMBAL ANNONCES · DIRECT AU PEUPLE",
+        note:'<b>Règle DIGIY :</b> cette page est publique. Voir les annonces est gratuit. Préparer une annonce est sans engagement. Pour publier, il faut passer par la demande, choisir une durée, régler le ticket, puis attendre la validation DIGIY. Les conditions, le prix, le lieu précis et l’affaire se discutent directement entre les personnes. DIGIYLYFE ne prend pas de commission et ne remplace pas la validation humaine.',
+        footer:"DIGIYLYFE ♾️ · NDIMBAL ANNONCES · VOIR GRATUIT · TICKET PUBLICATION · DIRECT AU PEUPLE",
         waMsg:function(title){return "Bonjour, je viens de voir l’annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";},
         smsMsg:function(title){return "Bonjour, annonce NDIMBAL : " + (title || "annonce") + ". Je veux plus d’informations.";}
       },
       en:{
-        docTitle:"NDIMBAL Ads — Public wall of approved ads",
-        docDesc:"NDIMBAL Ads: public wall of approved local ads — rentals, sales, land, houses, cars, services and short ads. Free to view, paid duration ticket to publish, direct contact, 0% commission.",
-        nav:["🌍 Site","🧭 HUB","🎫 Publish an ad"],
-        kicker:"Local classified ads · direct contact · 0% commission",
+        docTitle:"NDIMBAL Ads — Public wall · free to view · publication ticket",
+        docDesc:"NDIMBAL Ads: public wall of approved local ads — free to view, no-commitment ad request, paid duration ticket to publish, direct contact, 0% commission on deals between people.",
+        nav:["🌍 Site","🧭 HUB","🎫 Prepare an ad"],
+        kicker:"Local classified ads · free to view · direct contact · 0% commission",
         h1:"NDIMBAL Ads",
-        lead:"Browse approved local ads: studio rental, apartment, land for sale, house for sale, car, bicycle, item, service, request or short ad, with an asking price when it is a sale. Contact stays direct between people. DIGIYLYFE takes no commission.",
-        doctrine1:["Free to view","Publish with a ticket","Approved ads","Direct contact","0% commission","The field keeps control"],
-        doctrine2:["1 week · 5,000 FCFA","15 days · 10,000 FCFA","1 month · 20,000 FCFA"],
-        doctrine3:["Free to view","DIGIY validation before public display"],
+        lead:"Browse approved local ads: studio rental, apartment, land for sale, house for sale, car, bicycle, item, service, request or short ad, with an asking price when it is a sale. Viewing is free. Preparing an ad is without commitment. Public display goes through a paid duration ticket and DIGIY validation. Contact stays direct between people. DIGIYLYFE takes no commission.",
+        doctrine1:["Free to view","Prepare without commitment","Paid publication ticket","Approved ads","Direct contact","0% commission"],
+        doctrine2:["7-day ticket · 5,000 FCFA","15-day ticket · 10,000 FCFA","30-day ticket · 20,000 FCFA"],
+        doctrine3:["Free to view","No-commitment preparation","DIGIY validation before public display"],
         doctrine4:["🚗 Car for sale","🌍 Land for sale","🏡 House for sale","🚲 Bicycle for sale"],
-        publish:"🎫 Publish an ad",
+        publish:"🎫 Prepare an ad",
         audioTitle:"🎧 Understand NDIMBAL Ads",
-        audioText:"A short voice explains how to read an ad, contact directly and publish with a duration ticket without DIGIY commission.",
+        audioText:"A short voice explains how to read ads for free, prepare an ad without commitment, then publish with a duration ticket without DIGIY commission.",
         audioPlay:"🎧 Listen", audioReading:"⏸️ Reading",
         examplesTitle:"Local examples",
         examplesSub:"The asking price is shown to avoid unnecessary calls.",
@@ -824,13 +934,13 @@
         count:function(n){ return n + " ad" + (n > 1 ? "s" : ""); },
         loading:"Loading…", error:"Error",
         loadingGrid:"Loading NDIMBAL ads…",
-        emptyHtml:'No approved ad for the moment.<br>Come back later or publish an ad through inscription.html.<br><br><a class="railBtn gold" href="inscription.html">🎫 Publish an ad</a>',
+        emptyHtml:'No approved ad for the moment.<br>Come back later or prepare an ad through the request page.<br><br><a class="railBtn gold" href="demande.html">🎫 Prepare an ad</a>',
         noSupabase:"Supabase is unavailable in this browser.",
         loadError:function(rpc){ return 'Unable to load public ads.<br>Check the public function <b>'+esc(rpc)+'</b>, published statuses and EXECUTE rights.'; },
         zoneUnknown:"Area to confirm", durationUnknown:"Duration to confirm", detailsUnknown:"Details to confirm with the person.", pricePrefix:"💰 Asking price:", priceUnknown:"💰 Price to confirm", contactUnknown:"📞 Contact to confirm",
         whatsapp:"💬 WhatsApp", sms:"✉️ SMS",
-        note:'<b>DIGIY rule:</b> this page is public. Viewing ads is free. To publish, go through registration, choose a duration, pay the ticket, then wait for DIGIY validation. Conditions, asking price, exact location and payment are discussed directly between people. DIGIYLYFE takes no commission and does not replace human validation.',
-        footer:"DIGIYLYFE ♾️ · NDIMBAL ADS · DIRECT TO THE PEOPLE",
+        note:'<b>DIGIY rule:</b> this page is public. Viewing ads is free. Preparing an ad is without commitment. To publish, go through the request page, choose a duration, pay the ticket, then wait for DIGIY validation. Conditions, asking price, exact location and the deal are discussed directly between people. DIGIYLYFE takes no commission and does not replace human validation.',
+        footer:"DIGIYLYFE ♾️ · NDIMBAL ADS · FREE TO VIEW · PUBLICATION TICKET · DIRECT TO THE PEOPLE",
         waMsg:function(title){return "Hello, I saw the NDIMBAL ad: " + (title || "ad") + ". I would like more information.";},
         smsMsg:function(title){return "Hello, NDIMBAL ad: " + (title || "ad") + ". I would like more information.";}
       }
@@ -1100,13 +1210,13 @@
       "Bienvenue dans NDIMBAL Annonces. Ici, tu vois le mur public des annonces validées. " +
       "Tu peux chercher par zone, lire le titre, la catégorie, les détails, puis contacter directement par Ouatsap ou S M S. " +
       "DIGIYLYFE ne prend aucune commission. Les conditions et le paiement se discutent directement entre les personnes. " +
-      "Pour publier une annonce, appuie sur Publier une annonce. L’inscription permet de choisir la durée : semaine, quinzaine ou mois. DIGIY valide avant affichage public.";
+      "Pour préparer une annonce, appuie sur Préparer une annonce. La préparation est sans engagement. La publication passe par un ticket durée : semaine, quinzaine ou mois. DIGIY valide avant affichage public.";
 
     const textEn =
       "Welcome to NDIMBAL Ads. Here you can see the public wall of approved local ads. " +
       "You can search by area, read the title, category and details, then contact directly by WhatsApp or SMS. " +
       "DIGIYLYFE takes no commission. Conditions and payment are discussed directly between people. " +
-      "To publish an ad, press Publish an ad. Registration lets you choose a duration: one week, fifteen days or one month. DIGIY validates before public display.";
+      "To prepare an ad, press Prepare an ad. Preparation is without commitment. Publication goes through a duration ticket: one week, fifteen days or one month. DIGIY validates before public display.";
 
     function currentLang(){ return window.DIGIY_NDIMBAL_LANG === "en" ? "en" : "fr"; }
     function currentText(){ return currentLang() === "en" ? textEn : textFr; }
@@ -1175,15 +1285,53 @@
   })();
   </script>
   <script>
-  // DIGIY NDIMBAL: liens internes du dépôt. Le mur d’annonces = index.html, publication = inscription.html.
+  // DIGIY NDIMBAL: liens internes du dépôt. Le mur d’annonces = index.html, publication = demande.html.
   (function(){
     document.querySelectorAll('a[href="index.html"]').forEach(function(a){ a.setAttribute('href','index.html'); });
-    document.querySelectorAll('a[href="inscription.html"]').forEach(function(a){ a.setAttribute('href','inscription.html'); });
+    document.querySelectorAll('a[href="demande.html"]').forEach(function(a){ a.setAttribute('href','demande.html'); });
   })();
   </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
