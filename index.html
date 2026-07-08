@@ -6,8 +6,9 @@
   <meta name="theme-color" content="#0b5d3b"/>
   <meta name="robots" content="index,follow"/>
   <meta name="digiy-version" content="ndimbal-annonces-public-demande-sans-engagement-ticket-publication-20260707"/>
-  <!-- DIGIY LINK RULE: internal NDIMBAL links stay relative: ./index.html and ./demande.html for GitHub Pages/CNAME reliability. -->
-  <meta name="digiy-links" content="absolute-ndimbal-express-20260620"/>
+  <meta name="digiy-build" content="ndimbal-index-tous-boutons-preparer-vers-inscription-20260708"/>
+  <!-- DIGIY LINK RULE: internal NDIMBAL links stay relative: ./index.html and ./inscription.html for GitHub Pages/CNAME reliability. -->
+  <meta name="digiy-links" content="ndimbal-all-preparer-links-inscription-20260708"/>
   <title>NDIMBAL Annonces — Mur public · voir gratuit · ticket publication</title>
   <meta name="description" content="NDIMBAL Annonces : mur public des annonces validées — voir gratuit, préparer une annonce sans engagement, publier avec ticket durée payant, contact direct, 0% commission sur les affaires entre personnes."/>
 
@@ -702,7 +703,7 @@
       <!-- DIGIY: le mur public est la racine/index.html du dépôt. Aucun fichier mur-annonces.html. -->
       <a class="railBtn" href="https://digiylyfe.com/" rel="noopener">🌍 Site</a>
       <a class="railBtn" href="https://digiy-hub.digiylyfe.com/" rel="noopener">🧭 HUB</a>
-      <a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>
+      <a class="railBtn gold" href="./inscription.html">🎫 Préparer une annonce</a>
       <div class="digiyLangSwitch" aria-label="Choisir la langue">
         <button id="digiyLangFr" type="button" class="active">FR</button>
         <button id="digiyLangEn" type="button">EN</button>
@@ -735,7 +736,7 @@
             <span>Ticket 30 jours · 20 000 FCFA</span>
           </div>
           <div class="doctrine" aria-label="Action NDIMBAL Annonces">
-            <a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>
+            <a class="railBtn gold" href="./inscription.html">🎫 Préparer une annonce</a>
             <span>Voir gratuit</span>
             <span>Préparation sans engagement</span><span>Validation DIGIY avant affichage</span>
           </div>
@@ -785,7 +786,7 @@
           <strong>Exemples terrain</strong><br>
           <span>Le prix demandé est affiché pour éviter les appels inutiles.</span>
         </div>
-        <a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>
+        <a class="railBtn gold" href="./inscription.html">🎫 Préparer une annonce</a>
       </div>
 
       <div class="examplesGrid">
@@ -899,7 +900,7 @@
         count:function(n){ return n + " annonce" + (n > 1 ? "s" : ""); },
         loading:"Chargement…", error:"Erreur",
         loadingGrid:"Chargement des annonces NDIMBAL…",
-        emptyHtml:'Aucune annonce validée pour le moment.<br>Reviens plus tard ou prépare une annonce via la page de demande.<br><br><a class="railBtn gold" href="demande.html">🎫 Préparer une annonce</a>',
+        emptyHtml:'Aucune annonce validée pour le moment.<br>Reviens plus tard ou prépare une annonce via la page de demande.<br><br><a class="railBtn gold" href="./inscription.html">🎫 Préparer une annonce</a>',
         noSupabase:"Supabase indisponible sur ce navigateur.",
         loadError:function(rpc){ return 'Impossible de charger les annonces publiques.<br>Vérifie la fonction publique <b>'+esc(rpc)+'</b>, les statuts publiés et les droits EXECUTE.'; },
         zoneUnknown:"Zone à préciser", durationUnknown:"Durée à préciser", detailsUnknown:"Détails à confirmer avec la personne.", pricePrefix:"💰 Prix demandé :", priceUnknown:"💰 Prix à préciser", contactUnknown:"📞 Contact à préciser",
@@ -934,7 +935,7 @@
         count:function(n){ return n + " ad" + (n > 1 ? "s" : ""); },
         loading:"Loading…", error:"Error",
         loadingGrid:"Loading NDIMBAL ads…",
-        emptyHtml:'No approved ad for the moment.<br>Come back later or prepare an ad through the request page.<br><br><a class="railBtn gold" href="demande.html">🎫 Prepare an ad</a>',
+        emptyHtml:'No approved ad for the moment.<br>Come back later or prepare an ad through the request page.<br><br><a class="railBtn gold" href="./inscription.html">🎫 Prepare an ad</a>',
         noSupabase:"Supabase is unavailable in this browser.",
         loadError:function(rpc){ return 'Unable to load public ads.<br>Check the public function <b>'+esc(rpc)+'</b>, published statuses and EXECUTE rights.'; },
         zoneUnknown:"Area to confirm", durationUnknown:"Duration to confirm", detailsUnknown:"Details to confirm with the person.", pricePrefix:"💰 Asking price:", priceUnknown:"💰 Price to confirm", contactUnknown:"📞 Contact to confirm",
@@ -1285,15 +1286,91 @@
   })();
   </script>
   <script>
-  // DIGIY NDIMBAL: liens internes du dépôt. Le mur d’annonces = index.html, publication = demande.html.
+  // DIGIY NDIMBAL: liens internes du dépôt. Le mur d’annonces = index.html, préparation/publication = inscription.html.
   (function(){
-    document.querySelectorAll('a[href="index.html"]').forEach(function(a){ a.setAttribute('href','index.html'); });
-    document.querySelectorAll('a[href="demande.html"]').forEach(function(a){ a.setAttribute('href','demande.html'); });
+    document.querySelectorAll('a[href="index.html"],a[href="./index.html"]').forEach(function(a){ a.setAttribute('href','./index.html'); });
+    document.querySelectorAll('a[href="inscription.html"],a[href="./inscription.html"]').forEach(function(a){ a.setAttribute('href','./inscription.html'); });
   })();
   </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
